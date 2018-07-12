@@ -94,3 +94,9 @@ C:\caffe\caffe>git checkout windows
 建议使用**管理员权限**打开cmd，然后到该目录下执行**build_win.cmd**<br />
 **注意：如果中间有任何执行失败的地方，请删除caffe\build目录下的全部内容，以及caffe\scripts\build目录下的全部内容**
 
+### 4.编译pycaffe
+用VS2015打开caffe.sln，右击
+首先需要修改项目的一些**属性**：<br />
+>右击pycaffe→属性<br />
+>>左侧的**配置属性**里选择“**VC++目录**”：填入“Python目录\libs”和“Python目录\include”。
+
