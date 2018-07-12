@@ -9,32 +9,32 @@ Caffe的安装（Windows10+VS2015+Python27)
 
 可以直接在官网下载，地址：https://conda.io/miniconda.html<br />
 或者在我的Github上[下载最新版（时至2018/7/12的Windows x64最新版（python27)）](https://github.com/meisa233/Caffe/tree/master/Files%20about%20the%20installation%20of%20caffe)<br />
-请注意，请选择**将Miniconda加入环境变量**
+请注意，在**安装过程**中请选择**将Miniconda加入环境变量**
 
-* 除此之外还需要安装其他组件（pip、six、yaml、numpy):<br />
-注意这里我们是要Miniconda安装目录中的Python进行其他组件,即C:\Miniconda-x64中（由于后面的安排，特意将Miniconda安装在这个文件夹中），后面解释。<br />
+>除此之外还需要**安装其他组件（pip、six、yaml、numpy)**:<br />
+注意这里我们是要对**Miniconda安装目录中的Python**安装其他组件,即C:\Miniconda-x64中（由于后面的安排，特意将Miniconda安装在这个文件夹中），后面解释。<br />
 
-* **(1)首先安装pip：**<br />
+>>**(1)首先安装pip：**<br />
 在cmd窗口中（为了保险起见，请**选择管理员权限运行**，切换到C:\Miniconda-x64\Scripts下，输入**easy_install.exe pip**,一般没有什么问题的话，就会安装成功。<br />
 
-* **(2)安装six**<br />
-一般来说，运行Miniconda下的python之后，直接输入**pip install six**即可成功，但有时候会失败（原因未知，网络问题？），这时候需要到[Pypi官方网站](https://pypi.org/)下载相应的包，注意是whl为后缀的，我们以six组件为例<br />
-打开Pypi的官方网站，在搜索栏输入six<br />
-![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/1.png "1.png")<br />
+>>**(2)安装six**<br />
+>>>一般来说，运行Miniconda下的python之后，直接输入**pip install six**即可成功，但有时候会失败（原因未知，网络问题？），这时候需要到[Pypi官方网站](https://pypi.org/)下载相应的包，注意是whl为后缀的，我们以six组件为例<br />
+>>>打开Pypi的官方网站，在搜索栏输入six<br />
+>>>![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/1.png "1.png")<br />
 点开six，可以看到<br />
-![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/2.png)<br />
-我们选择Download files，可以看到这个界面<br />
+>>>![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/2.png)<br />
+>>>我们选择Download files，可以看到这个界面<br />
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/3.png)<br />
-我们选择six-1.11.0-py2.py3-none-any.whl，然后会下载下来这个文件，**将这个文件放到C:\Miniconda-x64\Scripts下**，为了使pip命令可以直接运行，我们**可以将pip的路径加入环境变量（path）**<br />
-在本例中是“C:\Miniconda-x64\Scripts”，将这个变量加入**path（系统变量）**，然后运行**cmd**，在cmd中输入“cd /d C:\Miniconda-x64\Scripts”,将当前目录更改到这个目录下<br />
-然后输入“pip install six-1.11.0-py2.py3-none-any.whl”，即可安装成功。<br />
-* 注意在这个例子中，只有一个版本，通常一个组件（module）是有很多个版本的，如图：<br />
-![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/4.png)<br />
+>>>我们选择six-1.11.0-py2.py3-none-any.whl，然后会下载下来这个文件，**将这个文件放到C:\Miniconda-x64\Scripts下**，为了使pip命令可以直接运行，我们**将pip的路径加入环境变量（path）**<br />
+>>>在本例中是“C:\Miniconda-x64\Scripts”，将这个变量加入**path（系统变量）**，然后运行**cmd**，在cmd中输入“cd /d C:\Miniconda-x64\Scripts”,将当前目录更改到这个目录下<br />
+>>>然后输入“pip install six-1.11.0-py2.py3-none-any.whl”，即可安装成功。<br />
+>>>注意在这个例子中，只有一个版本，通常一个组件（module）是有很多个版本的，如图：<br />
+>>>![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/4.png)<br />
 因此我们要选择符合**系统**以及符合**Python版本**的module，在这里我们是windows、64位、python27。<br />
 
-* **(3)安装yaml: pip install pyyaml**
+>>**(3)安装yaml: pip install pyyaml**
 
-* **(4)安装numpy:pip install numpy**
+>>**(4)安装numpy:pip install numpy**
 
 
 ### 2.安装VS2015
@@ -65,6 +65,8 @@ Caffe的安装（Windows10+VS2015+Python27)
 
 可以从https://github.com/Microsoft/Git-Credential-Manager-for-Windows/tags这里下载，本例用的1.17预览版，你可以选择更新的版本。
 
+本例用的版本的[下载地址](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/GCMW-1.17.0-preview.2.exe)<br />
+
 ### 6.建议安装notepad++
 
 
@@ -86,4 +88,9 @@ C:\caffe\caffe>git checkout windows
 
 ### 2.编辑build_win.cmd
 
+建议使用**notepad++**编辑build_win.cmd（在caffe\scripts\下）,具体编辑过程见[这里](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/build_win%202.cmd)
+
+### 3.执行build_win.cmd
+建议使用**管理员权限**打开cmd，然后到该目录下执行**build_win.cmd**<br />
+**注意：如果中间有任何执行失败的地方，请删除caffe\build目录下的全部内容，以及caffe\scripts\build目录下的全部内容**
 
