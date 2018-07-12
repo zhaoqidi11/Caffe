@@ -1,9 +1,51 @@
 
 
-Caffe的安装
+Caffe的安装（Windows10+VS2015+Python27)
 ======================================
 
 准备工作：
 ------------------------
-###1.下载Miniconda
+### 1.下载Miniconda
 
+可以直接在官网下载，地址：https://conda.io/miniconda.html<br />
+或者在我的Github上[下载最新版（时至2018/7/12的Windows x64最新版（python27)）](https://github.com/meisa233/Caffe/tree/master/Files%20about%20the%20installation%20of%20caffe)<br />
+请注意，请选择**将Miniconda加入环境变量**
+
+* 除此之外还需要安装其他组件（pip、six、yaml、numpy):<br />
+注意这里我们是要Miniconda安装目录中的Python进行其他组件,即C:\Miniconda-x64中（由于后面的安排，特意将Miniconda安装在这个文件夹中），后面解释。<br />
+
+* **(1)首先安装pip：**<br />
+在cmd窗口中（为了保险起见，请**选择管理员权限运行**，切换到C:\Miniconda-x64\Scripts下，输入**easy_install.exe pip**,一般没有什么问题的话，就会安装成功。<br />
+
+* **(2)安装six**<br />
+一般来说，运行Miniconda下的python之后，直接输入**pip install six**即可成功，但有时候会失败（原因未知，网络问题？），这时候需要到[Pypi官方网站](https://pypi.org/)下载相应的包，注意是whl为后缀的，我们以six组件为例<br />
+打开Pypi的官方网站，在搜索栏输入six<br />
+![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/1.png "1.png")<br />
+点开six，可以看到<br />
+![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/2.png)<br />
+我们选择Download files，可以看到这个界面<br />
+![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/3.png)<br />
+我们选择six-1.11.0-py2.py3-none-any.whl，然后会下载下来这个文件，**将这个文件放到C:\Miniconda-x64\Scripts下**，为了使pip命令可以直接运行，我们**可以将pip的路径加入环境变量（path）**，在本例中是“C:\Miniconda-x64\Scripts”，将这个变量加入path（系统变量），然后运行cmd，在cmd中输入“cd /d C:\Miniconda-x64\Scripts”，将当前目录更改到这个目录下，然后输入“pip install six-1.11.0-py2.py3-none-any.whl”，即可安装成功。<br />
+* 注意在这个例子中，只有一个版本，通常一个组件（module）是有很多个版本的，如图：<br />
+![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/4.png)<br />
+因此我们要选择符合**系统**以及符合**Python版本**的module，在这里我们是windows、64位、python27。<br />
+
+* **(3)安装yaml: pip install pyyaml**
+
+* **(4)安装numpy:pip install numpy**
+
+
+### 2.安装VS2015
+
+这里用的 官网离线下载镜像（社区版）：http://download.microsoft.com/download/B/4/8/B4870509-05CB-447C-878F-2F80E4CB464C/vs2015.com_chs.iso
+
+如有需要可以看[其他版本](https://github.com/meisa233/Caffe/blob/master/VS2015%20Download.md)<br />
+
+* 注意：默认安装VS2015的时候是**不会包含C++编译器**的，所以一定要选择**自定义安装**，选择**C++编译器（即C++开发工具）**，以防万一选上**Python和SDK等其他组件**
+
+### 3.安装CMake
+
+这里安装的最新版3.12.0-rc3-windows-x64(时至2018/7/12)，官网下载地址：https://cmake.org/download/<br />
+或者在我的Github上[下载](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/cmake-3.12.0-rc3-win64-x64%20(1).7z)<br />
+
+3.
