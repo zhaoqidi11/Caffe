@@ -25,7 +25,9 @@ Caffe的安装（Windows10+VS2015+Python27)
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/2.png)<br />
 我们选择Download files，可以看到这个界面<br />
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/3.png)<br />
-我们选择six-1.11.0-py2.py3-none-any.whl，然后会下载下来这个文件，**将这个文件放到C:\Miniconda-x64\Scripts下**，为了使pip命令可以直接运行，我们**可以将pip的路径加入环境变量（path）**，在本例中是“C:\Miniconda-x64\Scripts”，将这个变量加入path（系统变量），然后运行cmd，在cmd中输入“cd /d C:\Miniconda-x64\Scripts”，将当前目录更改到这个目录下，然后输入“pip install six-1.11.0-py2.py3-none-any.whl”，即可安装成功。<br />
+我们选择six-1.11.0-py2.py3-none-any.whl，然后会下载下来这个文件，**将这个文件放到C:\Miniconda-x64\Scripts下**，为了使pip命令可以直接运行，我们**可以将pip的路径加入环境变量（path）**<br />
+在本例中是“C:\Miniconda-x64\Scripts”，将这个变量加入**path（系统变量）**，然后运行**cmd**，在cmd中输入“cd /d C:\Miniconda-x64\Scripts”,将当前目录更改到这个目录下<br />
+然后输入“pip install six-1.11.0-py2.py3-none-any.whl”，即可安装成功。<br />
 * 注意在这个例子中，只有一个版本，通常一个组件（module）是有很多个版本的，如图：<br />
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/4.png)<br />
 因此我们要选择符合**系统**以及符合**Python版本**的module，在这里我们是windows、64位、python27。<br />
@@ -47,5 +49,16 @@ Caffe的安装（Windows10+VS2015+Python27)
 
 这里安装的最新版3.12.0-rc3-windows-x64(时至2018/7/12)，官网下载地址：https://cmake.org/download/<br />
 或者在我的Github上[下载](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/cmake-3.12.0-rc3-win64-x64%20(1).7z)<br />
+**网上的资料要求CMake的版本必须在3.4以上（没有验证这个问题，直接安装的最新版）**<br />
+下载之后，解压到C盘目录下，本例是：“C:\cmake-3.12.0-rc3-win64-x64”
 
-3.
+### 4.下载依赖库
+
+时至2018/7/12，目前最新版本的依赖库是libraries_v140_x64_py27_1.1.0.tar.bz2，可以从https://github.com/willyd/caffe-builder/releases
+下载到。<br />
+下载后将这个文件放到**“C:\Users\沙\.caffe\dependencies\download”**下，即**“C:\Users\用户名\.caffe\dependencies\download”**下
+（由于安装完之后才写的这个文档，忘记具体是什么情况下了，在dependencies下也有这个tar.bz2的文件以及该文件的压缩包）
+
+开始安装：
+------------------------
+
