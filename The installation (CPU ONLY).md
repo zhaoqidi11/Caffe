@@ -52,13 +52,38 @@ Caffe的安装（Windows10+VS2015+Python27)
 **网上的资料要求CMake的版本必须在3.4以上（没有验证这个问题，直接安装的最新版）**<br />
 下载之后，解压到C盘目录下，本例是：“C:\cmake-3.12.0-rc3-win64-x64”
 
+**将CMake解压后的路径\bin，即“C:\cmake-3.12.0-rc3-win64-x64\cmake-3.12.0-rc3-win64-x64\bin”写入环境变量path（系统变量）”
+
 ### 4.下载依赖库
 
 时至2018/7/12，目前最新版本的依赖库是libraries_v140_x64_py27_1.1.0.tar.bz2，可以从https://github.com/willyd/caffe-builder/releases
 下载到。<br />
-下载后将这个文件放到**“C:\Users\沙\.caffe\dependencies\download”**下，即**“C:\Users\用户名\.caffe\dependencies\download”**下
-（由于安装完之后才写的这个文档，忘记具体是什么情况下了，在dependencies下也有这个tar.bz2的文件以及该文件的压缩包）
+下载后将这个文件放到**“C:\Users\沙\.caffe\dependencies\download”,即“C:\Users\用户名\.caffe\dependencies\download”下<br />
+（由于安装完之后才写的这个文档，忘记具体是什么情况下了，在dependencies下也有这个tar.bz2的文件以及该文件的压缩包）**<br/>
+
+### 5. 安装Git Credential Manager for Windows
+
+可以从https://github.com/Microsoft/Git-Credential-Manager-for-Windows/tags这里下载，本例用的1.17预览版，你可以选择更新的版本。
+
+### 6.建议安装notepad++
+
+
 
 开始安装：
 ------------------------
+### 1.下载caffe源码
+使用 **GCMW（Git Credential Manager for Windows）进行克隆**，打开**Git CMD（直接在开始菜单找或者搜索）**<br />
+
+进入**需要克隆的本地目录**，输入**git clone https://github.com/BVLC/caffe.git**。
+如下：
+```
+C:\caffe>git clone https://github.com/BVLC/caffe.git
+C:\caffe>cd caffe
+C:\caffe\caffe>git checkout windows
+
+```
+下载过程会比较漫长，完成以上操作即可。
+
+### 2.编辑build_win.cmd
+
 
