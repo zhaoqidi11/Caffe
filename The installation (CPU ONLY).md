@@ -97,6 +97,13 @@ C:\caffe\caffe>git checkout windows
 ### 4.编译pycaffe
 用VS2015打开caffe.sln，右击
 首先需要修改项目的一些**属性**：<br />
->右击pycaffe→属性<br />
->>左侧的**配置属性**里选择“**VC++目录**”：填入“Python目录\libs”和“Python目录\include”。
+在这里我们使用**CPU模式**，需要进行一些修改：<br />
+![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/6.png)<br />
 
+>右击pycaffe→属性<br />
+>>（1）左侧的**配置属性**里选择“**VC++目录**”：**包含目录**填入“Python目录\libs”和“Python目录\include”,本例中是“C:\Miniconda-x64\libs”和“C:\Miniconda-x64\include”<br />
+>>（2）**库目录**填入”Python目录\Lib”，本例中是“C:\Miniconda-x64\Lib”、“C:\Miniconda-x64\libs”和“C:\Miniconda-x64\include”<br />
+>>(3)**C/C++的附加包含目录**内容如下（具体记不清楚了只好截图）：<br />
+![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/5.png)<br />
+>>主要是**要填入：“Python目录\Lib”、“Python目录\include”以及“Python目录\Lib\site-packages\numpy\core\include”**
+>>(4)**链接器的常规的附加库目录**填入以下内容：C:\caffe\caffe\scripts\build\lib\Release
