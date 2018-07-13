@@ -107,3 +107,5 @@ C:\caffe\caffe>git checkout windows
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/5.png)<br />
 >>主要是**要填入：“Python目录\Lib”、“Python目录\include”以及“Python目录\Lib\site-packages\numpy\core\include”**
 >>(4)**链接器的常规的附加库目录**填入以下内容：C:\caffe\caffe\scripts\build\lib\Release
+
+接下来先编译运行caffe.cpp
