@@ -109,3 +109,34 @@ C:\caffe\caffe>git checkout windows
 >>(4)**链接器的常规的附加库目录**填入以下内容：C:\caffe\caffe\scripts\build\lib\Release
 
 接下来先编译运行caffe.cpp
+
+在编译之前，我们需要对解决方案的属性进行一下配置，如下图<br />
+![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/7.png)
+**将pycaffe设定为单启动项目**
+
+**然后VS2013里面pycaffe项目点击生成。生成之后如果显示这个无法打开_caffe.pyd文件，就说明生成成功了**
+
+### 5.安装protobuf
+>(1)下载源码<br />
+>>到[Google](https://github.com/google/protobuf/releases)上下载Python版源码和Win32.zip<br />
+>>或者到[这里下载Python版protobuf源码](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/protobuf-python-3.6.0.zip)<br />
+>>以及到[这里下在win32.zip](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/protoc-3.6.0-win32%20(1).zip)<br />
+>>**解压protoc-3.6.0-win32 (1).zip→找到bin目录下的protoc.exe→将这个protoc.exe放到python源码包解压后的src目录下→然后执行python setup.py→python setup.py test→python setup.py install**
+>>**如果在安装过程中报错：UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 7: ordi，可以进行如下操作:<br />
+打开Python目录/Lib文件夹下的site.py文件,在文件开头加入三行：**<br />
+```
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+```
+该方法来源：https://blog.csdn.net/Ehcoing/article/details/78983339
+### 6.安装其他的Python包
+>(1)Cython>=0.19.2<br />
+[官网下载地址](https://pypi.org/project/Cython/),[时至2018/7/14的python27win64版](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/Cython-0.28.4-cp27-cp27m-win_amd64.whl)
+>(2)numpy-mkl版(版本>=1.7.1)<br />
+[官网下载地址](https://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy)<br />
+或者<br />
+[numpy-1.14.5+mkl-cp27-cp27m-win_amd64.7z.001](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/numpy-1.14.5%2Bmkl-cp27-cp27m-win_amd64.7z.001)<br />
+[numpy-1.14.5+mkl-cp27-cp27m-win_amd64.7z.002](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/numpy-1.14.5%2Bmkl-cp27-cp27m-win_amd64.7z.002)<br />
+
+具体安装教程见：https://www.jianshu.com/p/6b2a50386701
