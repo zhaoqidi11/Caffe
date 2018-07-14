@@ -227,7 +227,7 @@ e.**numpydoc>=0.6**<br />
 >**安装numpydoc**<br />
 >[官方下载地址](https://pypi.org/project/numpydoc/#files)<br />
 >[numpydoc-0.8.0.tar.gz](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/numpydoc-0.8.0.tar.gz)<br />
----
+<br />
 f.**PyWavelets>=0.4**<br />
 [官方下载地址](https://pypi.org/project/PyWavelets/#files)<br />
 [PyWavelets-0.5.2-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/PyWavelets-0.5.2-cp27-cp27m-win_amd64.whl)<br />
