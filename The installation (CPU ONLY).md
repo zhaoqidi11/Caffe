@@ -149,36 +149,175 @@ sys.setdefaultencoding('utf-8')
 安装scikit-image需要先安装其他包:
 a.**six>=1.10.0**<br />
 在准备工作中的1的(1)已经安装好了，不做赘述<br />
+___
 b.**dask[array]>=0.9.0**<br />
 [dask-0.18.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/dask-0.18.0-py2.py3-none-any.whl)<br />
+___
 c.**Cython>=0.23**<br />
 在这一步的第（1）步已经安装好了，不做赘述
+___
 d.**SciPy>=0.9**<br />
 第（3）步已经安装好了
+___
 e.**numpydoc>=0.6**<br />
->**a.a sphinx>=1.2.3**<br />
+>**e.a sphinx>=1.2.3**<br />
 >要安装sphinx，需要安装其他包<br />
->>**a.a.a Jinja2>=2.3**<br />
+>>**e.a.a Jinja2>=2.3**<br />
 >>要安装Jinja2，需要先安装**MarkupSafe>=0.23**<br />
 >>[官方下载地址](https://pypi.org/project/MarkupSafe/#files)<br />
 >>[MarkupSafe-1.0](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Jinja2/MarkupSafe-1.0-cp27-cp27m-win_amd64.whl)<br />
+---
 >>然后安装**Jinja2**,[官方下载地址](https://pypi.org/project/Jinja2/#files)<br />
 >>[Jinja2-2.10-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Jinja2/Jinja2-2.10-py2.py3-none-any.whl)<br />
->>**a.a.b colorama>=0.3.5**<br />
+---
+>>**e.a.b colorama>=0.3.5**<br />
 >>[官方下载地址](https://pypi.org/project/colorama/#files)<br />
->>[colorama-0.3.9-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/colorama-0.3.9-py2.py3-none-any.whl)
->>**a.a.c Babel!=2.0且>=1.3**<br />
+>>[colorama-0.3.9-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/colorama-0.3.9-py2.py3-none-any.whl)<br />
+---
+>>**e.a.c Babel!=2.0且>=1.3**<br />
 >>要安装Babel需要先安装**pytz>=0a**
 >>[官方下载地址](https://pypi.org/project/pytz/#files)<br />
->>[pytz-2018.5-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Babel/pytz-2018.5-py2.py3-none-any.whl)
+>>[pytz-2018.5-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Babel/pytz-2018.5-py2.py3-none-any.whl)<br />
+---
 >>然后安装Babel<br />
 >>[官方下载地址](https://pypi.org/project/Babel/#files)<br />
->>[Babel-2.6.0-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Babel/Babel-2.6.0-py2-none-any.whl)
->>**a.a.d typing (python_version<3.5)**<br />
+>>[Babel-2.6.0-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Babel/Babel-2.6.0-py2-none-any.whl)<br />
+---
+>>**e.a.d typing (python_version<3.5)**<br />
 >>[官方下载地址](https://pypi.org/project/typing/#files)<br />
 >>[typing-3.6.4-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/typing-3.6.4-py2-none-any.whl)<br />
->>**a.a.e docutils>=0.11**<br />
+---
+>>**e.a.e docutils>=0.11**<br />
 >>[官方下载地址](https://pypi.org/project/docutils/#files)<br />
 >>[docutils-0.14-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/docutils-0.14-py2-none-any.whl)<br />
->>**a.a.f alabaster<0.8,>=0.7**<br />
->>[
+---
+>>**e.a.f alabaster<0.8,>=0.7**<br />
+>>[官方下载地址](https://pypi.org/project/alabaster/#files)<br />
+>>[alabaster-0.7.11-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/alabaster-0.7.11-py2.py3-none-any.whl)<br />
+---
+>>**e.a.g snowballstemmer>=1.1**<br />
+>>[官方下载地址](https://pypi.org/project/snowballstemmer/#files)<br />
+>>[snowballstemmer-1.2.1-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/snowballstemmer-1.2.1-py2.py3-none-any.whl)<br />
+---
+>>**e.a.h Pygments>=2.0**<br />
+>>[官方下载地址](https://pypi.org/project/Pygments/#files)<br />
+>>[Pygments-2.2.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Pygments-2.2.0-py2.py3-none-any.whl)<br />
+---
+>>**e.a.i packaging**<br />
+>>要安装packaging，需要先安装**pyparsing>=2.0.2**
+>>[官方下载地址](https://pypi.org/project/pyparsing/#files)<br />
+>>[pyparsing-2.2.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/packaging/pyparsing-2.2.0-py2.py3-none-any.whl)<br />
+---
+>>然后安装packaging<br />
+>>[官方下载地址(https://pypi.org/project/packaging/#files)<br />
+>>[packaging-17.1-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/packaging/packaging-17.1-py2.py3-none-any.whl)<br />
+---
+>>**e.a.j sphinxcontrib_websupport**<br />
+>>[官方下载地址](https://pypi.org/project/sphinxcontrib-websupport/#files)<br />
+>>[sphinxcontrib_websupport-1.1.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/sphinxcontrib_websupport-1.1.0-py2.py3-none-any.whl)<br />
+---
+>>**e.a.k imagesize**<br />
+>>[官方下载地址](https://pypi.org/project/imagesize/#files)<br />
+>>[imagesize-1.0.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/imagesize-1.0.0-py2.py3-none-any.whl)<br />
+---
+>**最后安装sphinx**<br />
+>[官方下载地址](https://pypi.org/project/Sphinx/#files)<br />
+>[Sphinx-1.7.5-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Sphinx-1.7.5-py2.py3-none-any.whl)<br />
+---
+**安装numpydoc**<br />
+[官方下载地址](https://pypi.org/project/numpydoc/#files)<br />
+[numpydoc-0.8.0.tar.gz](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/numpydoc-0.8.0.tar.gz)<br />
+---
+f.**PyWavelets>=0.4**<br />
+[官方下载地址](https://pypi.org/project/PyWavelets/#files)<br />
+[PyWavelets-0.5.2-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/PyWavelets-0.5.2-cp27-cp27m-win_amd64.whl)<br />
+---
+g.**cloudpickle>=0.2.1**<br />
+[官方下载地址](https://pypi.org/project/cloudpickle/#files)<br />
+[cloudpickle-0.5.3-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/cloudpickle-0.5.3-py2.py3-none-any.whl)<br />
+---
+h.**NetworkX>=1.8**<br />
+[官方下载地址](https://pypi.org/project/networkx/#files)<br />
+[networkx-2.1-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/networkx-2.1-py2.py3-none-any.whl)<br />
+---
+i.**Pillow>=4.3.0**<br />
+[官方下载地址](https://pypi.org/project/Pillow/#files)<br />
+[Pillow-5.2.0-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/Pillow-5.2.0-cp27-cp27m-win_amd64.whl)<br />
+---
+j.**toolz>=0.7.3**<br />
+[官方下载地址](https://pypi.org/project/toolz/#files)<br />
+[toolz-0.9.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/toolz-0.9.0-py2.py3-none-any.whl)<br />
+---
+**最后安装scikit-image**<br />
+[官方下载地址]()<br />
+[]()<br />
+---
+(5)matplotlib>=1.3.1<br />
+a.**python-dateutil>=2.1**<br />
+[官方下载地址](https://pypi.org/project/python-dateutil/#files)<br />
+[python_dateutil-2.7.3-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/matplotlib/python_dateutil-2.7.3-py2.py3-none-any.whl)<br />
+---
+b.**backports.functools-lru-cache**<br />
+[官方下载地址](https://pypi.org/project/backports.functools_lru_cache/#files)<br />
+[backports.functools_lru_cache-1.5-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/matplotlib/backports.functools_lru_cache-1.5-py2.py3-none-any.whl)<br />
+---
+c.**cycler>=0.10**<br />
+[官方下载地址](https://pypi.org/project/Cycler/#files)<br />
+[cycler-0.10.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/matplotlib/cycler-0.10.0-py2.py3-none-any.whl)<br />
+---
+d.**kiwisolver>=1.0.1**<br />
+[官方下载地址](https://pypi.org/project/kiwisolver/#files)<br />
+[kiwisolver-1.0.1-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/matplotlib/kiwisolver-1.0.1-cp27-cp27m-win_amd64.whl)<br />
+---
+**最后安装matplotlib**<br />
+(6)ipython>=3.0.0<br />
+a.**prompt-toolkit>=1.0.4**<br />
+需要安装**wcwidth**<br />
+[官方下载地址](https://pypi.org/project/wcwidth/#files)<br />
+[wcwidth-0.1.7-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/prompt_toolkit/wcwidth-0.1.7-py2.py3-none-any.whl)<br />
+---
+最后安装**prompt-toolkit**<br />
+[官方下载地址](https://pypi.org/project/prompt/#files)<br />
+[prompt_toolkit-1.0.15-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/prompt_toolkit/prompt_toolkit-1.0.15-py2-none-any.whl)<br />
+---
+b.**pickleshare**<br />
+b.a**pathlib2**<br />
+b.a.a **sandir**
+[官方下载地址](https://pypi.org/project/scandir/#files)<br />
+[scandir-1.7-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/pickleshare/pathlib/scandir-1.7-cp27-cp27m-win_amd64.whl)<br />
+---
+然后安装**pathlib2**<br />
+[官方下载地址](https://pypi.org/project/pathlib2/#files)<br />
+[pathlib2-2.3.2-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/pickleshare/pathlib/pathlib2-2.3.2-py2.py3-none-any.whl)<br />
+---
+然后安装**pickleshare**<br />
+[官方下载地址](https://pypi.org/project/pickleshare/#files)<br />
+[pickleshare-0.7.4-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/pickleshare/pickleshare-0.7.4-py2.py3-none-any.whl)<br />
+---
+c.**win-unicode-console>=0.5**<br />
+[官方下载地址](https://pypi.org/project/win_unicode_console/#files)<br />
+[win_unicode_console-0.5-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/win_unicode_console-0.5-py2.py3-none-any.whl)<br />
+---
+d.**backports.shutil-get-terminal-size**<br />
+[官方下载地址](https://pypi.org/project/backports.shutil_get_terminal_size/#files)<br />
+[backports.shutil_get_terminal_size-1.0.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/backports.shutil_get_terminal_size-1.0.0-py2.py3-none-any.whl)<br />
+---
+e.**simplegeneric>0.8**<br />
+[官方下载地址](https://pypi.org/project/simplegeneric/#files)<br />
+[simplegeneric-0.8.1-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/simplegeneric-0.8.1-py2.py3-none-any.whl)<br />
+---
+f.**traitlets>=4.2**<br />
+f.a**ipython-genutils**<br />
+[官方下载地址](https://pypi.org/project/ipython_genutils/#files)<br />
+[ipython_genutils-0.2.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/traitlets/ipython_genutils-0.2.0-py2.py3-none-any.whl)<br />
+最后安装**traitlets**<br />
+[官方下载地址](https://pypi.org/project/traitlets/#files)<br />
+[traitlets-4.3.2-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/traitlets/traitlets-4.3.2-py2.py3-none-any.whl)<br />
+---
+最后安装**ipython**<br />
+[官方下载地址](https://www.lfd.uci.edu/~gohlke/pythonlibs/#jupyter)<br />
+[ipython-5.7.0-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/ipython-5.7.0-py2-none-any.whl)<br />
+---
+(7)h5py>=2.2.0<br />
+[官方下载地址](https://pypi.org/project/h5py/#files)<br />
+[h5py-2.8.0-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/h5py-2.8.0-cp27-cp27m-win_amd64.whl)<br />
