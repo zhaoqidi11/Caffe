@@ -224,9 +224,9 @@ e.**numpydoc>=0.6**<br />
 >[官方下载地址](https://pypi.org/project/Sphinx/#files)<br />
 >[Sphinx-1.7.5-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Sphinx-1.7.5-py2.py3-none-any.whl)<br />
 ---
-**安装numpydoc**<br />
-[官方下载地址](https://pypi.org/project/numpydoc/#files)<br />
-[numpydoc-0.8.0.tar.gz](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/numpydoc-0.8.0.tar.gz)<br />
+>**安装numpydoc**<br />
+>[官方下载地址](https://pypi.org/project/numpydoc/#files)<br />
+>[numpydoc-0.8.0.tar.gz](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/numpydoc-0.8.0.tar.gz)<br />
 ---
 f.**PyWavelets>=0.4**<br />
 [官方下载地址](https://pypi.org/project/PyWavelets/#files)<br />
