@@ -123,20 +123,62 @@ C:\caffe\caffe>git checkout windows
 >>以及到[这里下在win32.zip](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/protoc-3.6.0-win32%20(1).zip)<br />
 >>**解压protoc-3.6.0-win32 (1).zip→找到bin目录下的protoc.exe→将这个protoc.exe放到python源码包解压后的src目录下→然后执行python setup.py→python setup.py test→python setup.py install**
 >>**如果在安装过程中报错：UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 7: ordi，可以进行如下操作:<br />
-打开Python目录/Lib文件夹下的site.py文件,在文件开头加入三行：**<br />
+>>打开Python目录/Lib文件夹下的site.py文件,在文件开头加入三行：**<br />
 ```
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 ```
+
 该方法来源：https://blog.csdn.net/Ehcoing/article/details/78983339
-### 6.安装其他的Python包
->(1)Cython>=0.19.2<br />
+### 6.安装其他的Python包(请按照顺序来）
+(1)Cython>=0.19.2<br />
 [官网下载地址](https://pypi.org/project/Cython/),[时至2018/7/14的python27win64版](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/Cython-0.28.4-cp27-cp27m-win_amd64.whl)
->(2)numpy-mkl版(版本>=1.7.1)<br />
+(2)numpy-mkl版(版本>=1.7.1)<br />
 [官网下载地址](https://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy)<br />
 或者<br />
 [numpy-1.14.5+mkl-cp27-cp27m-win_amd64.7z.001](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/numpy-1.14.5%2Bmkl-cp27-cp27m-win_amd64.7z.001)<br />
 [numpy-1.14.5+mkl-cp27-cp27m-win_amd64.7z.002](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/numpy-1.14.5%2Bmkl-cp27-cp27m-win_amd64.7z.002)<br />
-
 具体安装教程见：https://www.jianshu.com/p/6b2a50386701
+(3)scipy>=0.13.2
+[Pypi下载地址](https://pypi.org/project/scipy/#files)<br/>
+[镜像](https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy)<br />
+[scipy-1.1.0rc1-cp27-none-win_amd64.whl分卷1](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scipy-1.1.0rc1-cp27-none-win_amd64.7z.001)<br />
+[scipy-1.1.0rc1-cp27-none-win_amd64.whl分卷2]((https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scipy-1.1.0rc1-cp27-none-win_amd64.7z.002)<br />
+(4)scikit-image>=0.9.3
+安装scikit-image需要先安装其他包:
+a.**six>=1.10.0**<br />
+在准备工作中的1的(1)已经安装好了，不做赘述<br />
+b.**dask[array]>=0.9.0**<br />
+[dask-0.18.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/dask-0.18.0-py2.py3-none-any.whl)<br />
+c.**Cython>=0.23**<br />
+在这一步的第（1）步已经安装好了，不做赘述
+d.**SciPy>=0.9**<br />
+第（3）步已经安装好了
+e.**numpydoc>=0.6**<br />
+>**a.a sphinx>=1.2.3**<br />
+>要安装sphinx，需要安装其他包<br />
+>>**a.a.a Jinja2>=2.3**<br />
+>>要安装Jinja2，需要先安装**MarkupSafe>=0.23**<br />
+>>[官方下载地址](https://pypi.org/project/MarkupSafe/#files)<br />
+>>[MarkupSafe-1.0](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Jinja2/MarkupSafe-1.0-cp27-cp27m-win_amd64.whl)<br />
+>>然后安装**Jinja2**,[官方下载地址](https://pypi.org/project/Jinja2/#files)<br />
+>>[Jinja2-2.10-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Jinja2/Jinja2-2.10-py2.py3-none-any.whl)<br />
+>>**a.a.b colorama>=0.3.5**<br />
+>>[官方下载地址](https://pypi.org/project/colorama/#files)<br />
+>>[colorama-0.3.9-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/colorama-0.3.9-py2.py3-none-any.whl)
+>>**a.a.c Babel!=2.0且>=1.3**<br />
+>>要安装Babel需要先安装**pytz>=0a**
+>>[官方下载地址](https://pypi.org/project/pytz/#files)<br />
+>>[pytz-2018.5-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Babel/pytz-2018.5-py2.py3-none-any.whl)
+>>然后安装Babel<br />
+>>[官方下载地址](https://pypi.org/project/Babel/#files)<br />
+>>[Babel-2.6.0-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Babel/Babel-2.6.0-py2-none-any.whl)
+>>**a.a.d typing (python_version<3.5)**<br />
+>>[官方下载地址](https://pypi.org/project/typing/#files)<br />
+>>[typing-3.6.4-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/typing-3.6.4-py2-none-any.whl)<br />
+>>**a.a.e docutils>=0.11**<br />
+>>[官方下载地址](https://pypi.org/project/docutils/#files)<br />
+>>[docutils-0.14-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/docutils-0.14-py2-none-any.whl)<br />
+>>**a.a.f alabaster<0.8,>=0.7**<br />
+>>[
