@@ -18,7 +18,7 @@ Caffe的安装（Windows10+VS2015+Python27)
 **(1)首先安装pip：**<br />
 在cmd窗口中（为了保险起见，请**选择管理员权限运行**，切换到C:\Miniconda-x64\Scripts下，输入**easy_install.exe pip**,一般没有什么问题的话，就会安装成功。<br />
 >
-**(2)安装six**<br />
+**(2)安装six:**<br />
 一般来说，运行Miniconda下的python之后，直接输入**pip install six**即可成功，但有时候会失败（原因未知，网络问题？），这时候需要到[Pypi官方网站](https://pypi.org/)下载相应的包，注意是whl为后缀的，我们以six组件为例<br />
 >
 打开Pypi的官方网站，在搜索栏输入six<br />
@@ -37,7 +37,7 @@ Caffe的安装（Windows10+VS2015+Python27)
 >
 在本例中是“C:\Miniconda-x64\Scripts”，将这个变量加入**path（系统变量）**，然后运行**cmd**，在cmd中输入“cd /d C:\Miniconda-x64\Scripts”,将当前目录更改到这个目录下<br />
 >
-然后输入**“pip install six-1.11.0-py2.py3-none-any.whl”**，即可安装成功。<br />
+**然后输入“pip install six-1.11.0-py2.py3-none-any.whl”，即可安装成功**。<br />
 >
 **注意在这个例子中，只有一个版本，通常一个组件（module）是有很多个版本的，如图**：<br />
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/4.png)<br />
@@ -65,17 +65,17 @@ Caffe的安装（Windows10+VS2015+Python27)
 >
 下载之后，解压到**C盘目录下**，本例是：**“C:\cmake-3.12.0-rc3-win64-x64”**
 
-**将CMake解压后的路径\bin，即“C:\cmake-3.12.0-rc3-win64-x64\cmake-3.12.0-rc3-win64-x64\bin”写入环境变量path（系统变量）”
+**将CMake解压后的路径\bin，即“C:\cmake-3.12.0-rc3-win64-x64\cmake-3.12.0-rc3-win64-x64\bin”写入环境变量path（系统变量）”**<br />
 
 ### 4.下载依赖库
 
 时至2018/7/12，目前最新版本的依赖库是libraries_v140_x64_py27_1.1.0.tar.bz2，可以从https://github.com/willyd/caffe-builder/releases
 下载到。<br />
-下载后将这个文件放到**“C:\Users\沙\.caffe\dependencies\download”,即“C:\Users\用户名\.caffe\dependencies\download”下<br />
-（由于安装完之后才写的这个文档，忘记具体是什么情况下了，在dependencies下也有这个文件(.tar.bz2)以及这个文件的解压缩）**<br/>
+下载后将这个文件放到“C:\Users\沙\.caffe\dependencies\download”,即“C:\Users\用户名\.caffe\dependencies\download”下（由于安装完之后才写的这个文档，忘记具体是什么情况下了，在dependencies下也有这个文件(.tar.bz2)以及这个文件的解压缩）<br/>
 >
 如下面两张图所示：<br />
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/8.png)<br />
+___
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/9.png)<br />
 >
 
@@ -93,9 +93,8 @@ Caffe的安装（Windows10+VS2015+Python27)
 ------------------------
 ### 1.下载caffe源码
 使用 **GCMW（Git Credential Manager for Windows）进行克隆**，打开**Git CMD（直接在开始菜单找或者搜索）**<br />
-
+>
 进入**需要克隆的本地目录**，输入如下的三行命令：<br />
-如下：<br />
 ```
 C:\caffe>git clone https://github.com/BVLC/caffe.git
 C:\caffe>cd caffe
@@ -134,7 +133,7 @@ C:\caffe\caffe>git checkout windows
 >
 接下来**编译运行caffe.cpp**
 >
-在编译之前，我们需要对解决方案的属性进行一下配置，如下图<br />
+在编译之前，我们需要对**解决方案的属性**进行一下配置，如下图<br />
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/7.png)
 **将pycaffe设定为单启动项目**
 
@@ -163,21 +162,23 @@ sys.setdefaultencoding('utf-8')
 该方法来源：https://blog.csdn.net/Ehcoing/article/details/78983339<br />
 >
 ### 6.安装其他的Python包(请按照顺序来）
-##### (1)Cython>=0.19.2<br />
-[官网下载地址](https://pypi.org/project/Cython/),[时至2018/7/14的python27win64版](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/Cython-0.28.4-cp27-cp27m-win_amd64.whl)
-(2)numpy-mkl版(版本>=1.7.1)<br />
+##### (1)Cython>=0.19.2
+[官网下载地址](https://pypi.org/project/Cython/),[时至2018/7/14的python27win64版](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/Cython-0.28.4-cp27-cp27m-win_amd64.whl)<br />
+#### (2)numpy-mkl版(版本>=1.7.1)
 [官网下载地址](https://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy)<br />
 或者<br />
 [numpy-1.14.5+mkl-cp27-cp27m-win_amd64.7z.001](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/numpy-1.14.5%2Bmkl-cp27-cp27m-win_amd64.7z.001)<br />
 [numpy-1.14.5+mkl-cp27-cp27m-win_amd64.7z.002](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/numpy-1.14.5%2Bmkl-cp27-cp27m-win_amd64.7z.002)<br />
 具体安装教程见：https://www.jianshu.com/p/6b2a50386701
-(3)scipy>=0.13.2
+#### (3)scipy>=0.13.2
 [Pypi下载地址](https://pypi.org/project/scipy/#files)<br/>
 [镜像](https://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy)<br />
 [scipy-1.1.0rc1-cp27-none-win_amd64.whl分卷1](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scipy-1.1.0rc1-cp27-none-win_amd64.7z.001)<br />
-[scipy-1.1.0rc1-cp27-none-win_amd64.whl分卷2]((https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scipy-1.1.0rc1-cp27-none-win_amd64.7z.002)<br />
-(4)scikit-image>=0.9.3
-安装scikit-image需要先安装其他包:
+[scipy-1.1.0rc1-cp27-none-win_amd64.whl分卷2](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scipy-1.1.0rc1-cp27-none-win_amd64.7z.002)<br />
+#### (4)scikit-image>=0.9.3
+>
+安装scikit-image需要先安装其他包:<br />
+>
 a.**six>=1.10.0**<br />
 在准备工作中的1的(1)已经安装好了，不做赘述<br />
 ___
@@ -198,7 +199,8 @@ e.**numpydoc>=0.6**<br />
 >>[官方下载地址](https://pypi.org/project/MarkupSafe/#files)<br />
 >>[MarkupSafe-1.0](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Jinja2/MarkupSafe-1.0-cp27-cp27m-win_amd64.whl)<br />
 ---
->>然后安装**Jinja2**,[官方下载地址](https://pypi.org/project/Jinja2/#files)<br />
+>>然后安装**Jinja2**<br />
+>>[官方下载地址](https://pypi.org/project/Jinja2/#files)<br />
 >>[Jinja2-2.10-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Jinja2/Jinja2-2.10-py2.py3-none-any.whl)<br />
 ---
 >>**e.a.b colorama>=0.3.5**<br />
@@ -206,11 +208,11 @@ e.**numpydoc>=0.6**<br />
 >>[colorama-0.3.9-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/colorama-0.3.9-py2.py3-none-any.whl)<br />
 ---
 >>**e.a.c Babel!=2.0且>=1.3**<br />
->>要安装Babel需要先安装**pytz>=0a**
+>>要安装Babel需要先安装**pytz>=0a**<br />
 >>[官方下载地址](https://pypi.org/project/pytz/#files)<br />
 >>[pytz-2018.5-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Babel/pytz-2018.5-py2.py3-none-any.whl)<br />
 ---
->>然后安装Babel<br />
+>>然后安装**Babel**<br />
 >>[官方下载地址](https://pypi.org/project/Babel/#files)<br />
 >>[Babel-2.6.0-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Babel/Babel-2.6.0-py2-none-any.whl)<br />
 ---
@@ -235,12 +237,13 @@ e.**numpydoc>=0.6**<br />
 >>[Pygments-2.2.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/Pygments-2.2.0-py2.py3-none-any.whl)<br />
 ---
 >>**e.a.i packaging**<br />
->>要安装packaging，需要先安装**pyparsing>=2.0.2**
+>>要安装packaging，需要先安装**pyparsing>=2.0.2**<br />
 >>[官方下载地址](https://pypi.org/project/pyparsing/#files)<br />
 >>[pyparsing-2.2.0-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/packaging/pyparsing-2.2.0-py2.py3-none-any.whl)<br />
 ---
 >>然后安装packaging<br />
->>[官方下载地址(https://pypi.org/project/packaging/#files)<br />
+
+>>[官方下载地址](https://pypi.org/project/packaging/#files)<br />
 >>[packaging-17.1-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/scikit_image/numpydoc/Sphinx/packaging/packaging-17.1-py2.py3-none-any.whl)<br />
 ---
 >>**e.a.j sphinxcontrib_websupport**<br />
@@ -282,8 +285,8 @@ ___
 **最后安装scikit-image**<br />
 [官方下载地址]()<br />
 []()<br />
-___
-(5)matplotlib>=1.3.1<br />
+
+#### (5)matplotlib>=1.3.1
 a.**python-dateutil>=2.1**<br />
 [官方下载地址](https://pypi.org/project/python-dateutil/#files)<br />
 [python_dateutil-2.7.3-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/matplotlib/python_dateutil-2.7.3-py2.py3-none-any.whl)<br />
@@ -300,8 +303,10 @@ d.**kiwisolver>=1.0.1**<br />
 [官方下载地址](https://pypi.org/project/kiwisolver/#files)<br />
 [kiwisolver-1.0.1-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/matplotlib/kiwisolver-1.0.1-cp27-cp27m-win_amd64.whl)<br />
 ___
-**最后安装matplotlib**<br />
-(6)ipython>=3.0.0<br />
+**最后安装matplotlib**
+[官方下载地址](https://pypi.org/project/matplotlib/#files)<br />
+[matplotlib-2.2.2-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/matplotlib/matplotlib-2.2.2-cp27-cp27m-win_amd64.whl)<br />
+#### (6)ipython>=3.0.0
 a.**prompt-toolkit>=1.0.4**<br />
 需要安装**wcwidth**<br />
 [官方下载地址](https://pypi.org/project/wcwidth/#files)<br />
@@ -313,7 +318,7 @@ ___
 ___
 b.**pickleshare**<br />
 b.a**pathlib2**<br />
-b.a.a **sandir**
+b.a.a **sandir**<br />
 [官方下载地址](https://pypi.org/project/scandir/#files)<br />
 [scandir-1.7-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/pickleshare/pathlib/scandir-1.7-cp27-cp27m-win_amd64.whl)<br />
 ___
@@ -349,6 +354,33 @@ ___
 [官方下载地址](https://www.lfd.uci.edu/~gohlke/pythonlibs/#jupyter)<br />
 [ipython-5.7.0-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/ipython/ipython-5.7.0-py2-none-any.whl)<br />
 ___
-(7)h5py>=2.2.0<br />
+#### (7)h5py>=2.2.0<br />
 [官方下载地址](https://pypi.org/project/h5py/#files)<br />
 [h5py-2.8.0-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/h5py-2.8.0-cp27-cp27m-win_amd64.whl)<br />
+#### (8)leveldb>=0.191
+安装步骤如下:<br />
+>
+到(https://github.com/happynear/py-leveldb-windows/)下载windows版本的leveldb的源码<br />
+>
+可以直接克隆到本地<br />
+>
+![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/10.png)
+>
+**leveldb有个依赖库boost，所以接下来我们需要安装boost**，下载地址:<br />
+(https://sourceforge.net/projects/boost/files/boost-binaries/)<br />
+>
+**本例中下载的安装包是boost_1_67_0-msvc-14.1-64.exe**<br />
+>
+安装后我们将boost安装在C:\local\boost_1_67_0目录下<br />
+>
+并将C:\local\boost_1_67_0\lib64-msvc-14.1tianssong添加到系统环境变量path中<br />
+>
+然后添加系统变量，变量名：BOOST_1_67_0,变量值：C:\local\boost_1_67_0\lib64-msvc-14.1，**重启电脑**<br />
+>
+**接下来我们需要对克隆的leveldb项目进行一些属性修改**<br />
+>
+（1）打开**leveldb_ext.sln**<br />
+（2）将编译模式改为**Release，Win64**<br />
+（3）右击“leveldb_ext”的属性<br />
+
+
