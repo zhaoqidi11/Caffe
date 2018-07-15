@@ -382,5 +382,56 @@ ___
 （1）打开**leveldb_ext.sln**<br />
 （2）将编译模式改为**Release，Win64**<br />
 （3）右击“leveldb_ext”的属性<br />
-
-
+可以看到leveldb_ext属性页<br />
+>
+其中VC++目录的**包含目录**改为：<br />
+C:\local\boost_1_67_0;//boost安装目录<br />
+C:\leveldbnew\py-leveldb-windows\leveldb;//你克隆的leveldb的目录<br />
+C:\leveldbnew\py-leveldb-windows\leveldb\include;//你克隆的leveldb的include的目录<br />
+$(IncludePath)<br />
+>
+其中C/C++的**附加包含目录**改为：<br />
+C:\Miniconda-x64\include;//Python的include目录<br />
+C:\leveldbnew\py-leveldb-windows\leveldb;<br />
+C:\leveldbnew\py-leveldb-windows\leveldbinclude;<br />
+C:\leveldbnew\py-leveldb-windows\snappy;<br />
+C:\leveldbnew\py-leveldb-windows\leveldb\port\win;<br />
+%(AdditionalIncludeDirectories)<br />
+>
+其中链接器的**附加库目录**改为：<br />
+C:\Miniconda-x64\libs;//Python的库<br />
+C:\local\boost_1_67_0\lib64-msvc-14.1;<br />
+C:\leveldbnew\py-leveldb-windows\x64\Release;<br />
+%(AdditionalLibraryDirectories)<br />
+>
+其中链接器的**输入的附加依赖项**改为：<br />
+python27.lib;<br />
+Shlwapi.lib;<br />
+boost_date_time-vc141-mt-x64-1_67.lib;**//这个根据实际情况而定，要在boost目录中搜索boost_date_time寻找到合适的库文件**<br />
+%(AdditionalDependencies)<br />
+>
+**很重要的一点：删除掉Cpy-leveldb-windows\leveldb\port\win\目录下的stdint.h"**<br />
+**如果成功不了请多试几次，或者检查一下项目属性有没有写好**<br />
+更改完之后，右击leveldb_ext，生成即可，然后将x64\Release中生成的leveldb.pyd这个文件拷贝到**Python目录\Lib\site-packages**下<br />
+**在Python中测试import leveldb，没有报错就代表安装成功了。**
+>
+附上我自己的[已经编译通过的工程(Python27)](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/leveldbexample.7z)<br />
+我自己的[编译好的文件(Python27)](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/Leveldb-Release.7z)<br />
+Happynear先生编译好的文件[Python27](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/Happynear-leveldb-python2.7.zip),[Python36](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/Happynear-leveldb-python3.6.zip)<br />
+>
+**嫌麻烦可以直接将编译好的文件放到\Lib\site-packages下，进行测试，如果可以就不需要这么麻烦了**<br />
+>
+#### (9)nose>=1.3.0
+[官方下载地址](https://pypi.org/project/nose/#files)<br />
+[nose-1.3.7-py2-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/nose-1.3.7-py2-none-any.whl)<br />
+#### (10)pandas>=0.12.0
+[官方下载地址](https://pypi.org/project/pandas/#files)<br />
+[pandas-0.23.3-cp27-cp27m-win_amd64.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/pandas-0.23.3-cp27-cp27m-win_amd64.whl)<br />
+#### (11)python-gflags>=2.0
+[官方下载地址](https://pypi.org/project/python-gflags/#files)<br />
+[python_gflags-3.1.2-py2.py3-none-any.whl](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/python_gflags-3.1.2-py2.py3-none-any.whl)<br />
+>
+### 7.复制caffe的python包
+将caffe目录下的python下的caffe文件夹复制到Python目录\Lib\site_packages下，然后使用import caffe测试就可以知道是否成功了<br />
+>
+OVER
