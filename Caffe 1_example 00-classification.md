@@ -1,5 +1,5 @@
 因为目前只配置了CPU模式，所以自己把代码放到VS2015的python里面跑了。
-```
+```Python
 import numpy as np
 import matplotlib.pyplot as plt
 
