@@ -38,7 +38,7 @@ print mu
 
 mu = mu.mean(1).mean(1)  #对所有像素值取平均以此获取BGR的均值像素值
 print 'mean-subtracted values:', zip('BGR', mu)
-'''
+
 # 对输入数据进行变换
 transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})# caffe.io.Transformer 是用于预处理的类。事先填写进行预处理的要求。
 #输入的维度由四个input_dim字段构建。在默认情况下，使用的CaffeNet,net.blobs['data'].data.shape == (10, 3, 227, 227)，即从256*256的图像中提取出
@@ -60,5 +60,95 @@ transformer.set_raw_scale('data', 255)      #将像素值从[0,255]变换到[0,1
 
 transformer.set_channel_swap('data', (2,1,0))  #交换通道，从RGB变换到BGR
 #对于该函数的理解类似transformer.set_transpose('data',(2,0,1))
-'''
+
+############CPU分类过程#####################
+
+#设定输入图像大小
+net.blobs['data'].reshape(50,#batch大小，在这次测试中，载入了五十张相同的图（就这个cat.jpg)
+                          3,#3-channel（BGR）images
+                          227,227)#图像大小为227x227
+#使用load_image函数载入图像
+image = caffe.io.load_image(caffe_root + '\\caffe\\examples\\images\cat.jpg')
+#将image读入到'data'中，并对数据进行处理（如43行到62行写的那样）
+transformed_image = transformer.preprocess('data', image)
+
+################显示图片
+plt.imshow(image)
+plt.show()
+
+#################################
+#将转换后的图像载入到blobs中以'data'参数存入,后面data[...]猜测表示传入到所有维度中
+net.blobs['data'].data[...] = transformed_image
+#网络前馈输出到output中，output是一个dict类型的数据（字典）
+output = net.forward()
+#取出来'prob'，也就是第一张图（其实这五十张都是一样的）的概率
+output_prob = output['prob'][0]
+
+#对这1000个概率进行排序，找出来最大的那一个，那个类别就是我们预测的类别（类似最大似然估计
+print 'predicted class is:', output_prob.argmax()#找到概率最大值的索引
+
+#载入文件
+labels_file = caffe_root + '\\caffe\\data\\ilsvrc12\\synset_words.txt'
+#我们读入这个文件
+labels = np.loadtxt(labels_file, str, delimiter = '\t')#从txt文件中读取到向量中，str代表该文本文件含字母，delimiter代表分隔符
+
+print 'output label: ', labels[output_prob.argmax()]#print 后加逗号的作用是-------输出在同一行。
+
+#对概率进行排序（从低到高），取倒数5个（即前五个最高的）
+top_inds = output_prob.argsort()[::-1][:5]
+#Python序列切片地址可以写为[开始：结束：步长]，其中的开始和结束可以省略
+
+#打印概率的前五名以及相应的标签
+print 'probabilities and labels:'
+print zip(output_prob[top_inds], labels[top_inds])
+
+#net.blobs是一个Orderedict，已经按照进入字典的顺序排好序了，我们使用key,value的方式取出它的值
+#取出数据的shape
+
+#为什么使用iteritems()的原因：节省内存，见https://blog.csdn.net/TNTIN/article/details/79922577
+for layer_name, blob in net.blobs.iteritems():
+    print layer_name + '\t' + str(blob.data.shape)
+
+
+#net.params是卷积神经网络的参数，param[0]代表weights,param[1]代表biases
+for layer_name, param in net.params.iteritems():
+    print layer_name + '\t' + str(param[0].data.shape), str(param[1].data.shape)
+
+############################可视化特征(卷积核）
+def vis_squre(data):
+
+    #正则化数据
+    data = (data - data.min()) / (data.max() - data.min())
+
+    #先开方再向正无穷方向取整
+    n = int(np.ceil(np.sqrt(data.shape[0])))
+    
+    #在相邻的卷积核之间加入空白，padding用于填充，padding = (((0,10^2-卷积核总数），(0,1),(0,1))+((0,0),)*(4 - 3) = (0, 4)
+    #注意tuple是可以拼接的，tuple操作规则见https://www.cnblogs.com/beiguoxia113/p/6132320.html
+    #因此我们可以得到padding = ((0,4),(0,1),(0,1),(0,0))
+    #填充方法见https://blog.csdn.net/tan_handsome/article/details/80296827
+    #第一维(卷积核个数)前面填充0个填充值后面填充1个填充值；第二维和第三维分别是长和宽，前面都不填充，后面填充1个填充值；第四维(通道数)不填充
+    padding = (((0, n ** 2 - data.shape[0]),(0,1),(0,1)) + ((0,0),) * (data.ndim - 3))
+    
+    #填充方法见https://blog.csdn.net/qq_36332685/article/details/78803622，其中由于我们选择了constant，则固定填充1值，而1值经过转换器之后，即是
+    255
+    data = np.pad(data, padding, mode = 'constant', constant_values=1)
+
+    data = data.reshape((n, n) + data.shape[1:]).transpose((0, 2, 1, 3) + tuple(range(4, data.ndim + 1)))
+    data = data.reshape((n * data.shape[1], n * data.shape[3]) +data.shape[4:])
+
+    plt.imshow(data); plt.axis('off');plt.show()
+
+
+filters = net.params['conv1'][0].data
+
+vis_squre(filters.transpose(0,2,3,1))
+    
+
+
+
+
+
+
+
 ```
