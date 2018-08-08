@@ -33,10 +33,12 @@ net = caffe.Net(model_def,      # 定义模型结构
 
  # 加载ImageNet图像均值 (随着Caffe一起发布的)
 mu = np.load(caffe_root + '\\caffe\\python\\caffe\\imagenet\\ilsvrc_2012_mean.npy')#np.load读取数组
+#关于平均的说明，见	https://blog.csdn.net/yangdashi888/article/details/79340195
 print mu
 
 
 mu = mu.mean(1).mean(1)  #对所有像素值取平均以此获取BGR的均值像素值
+#首先在计算机中，该图像以(R,G,B)格式来存储，先对G压缩，得到(R,B)的平均值；再对B压缩，得到整体所有的像素的平均值(R)
 print 'mean-subtracted values:', zip('BGR', mu)
 
 # 对输入数据进行变换
