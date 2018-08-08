@@ -133,12 +133,14 @@ def vis_squre(data):
     padding = (((0, n ** 2 - data.shape[0]),(0,1),(0,1)) + ((0,0),) * (data.ndim - 3))
     
     #填充方法见https://blog.csdn.net/qq_36332685/article/details/78803622，其中由于我们选择了constant，则固定填充1值，而1值经过转换器之后，即是
-    255
+    #255
+    #填充前，data的shape是(96,11,11,3)，填充后变成(100,12,12,3)
     data = np.pad(data, padding, mode = 'constant', constant_values=1)
-
+    #连接元组(n,n,12,12,3),并交换维度(0,2,1,3,5)即变成(n,12,n,12,3)，即(10,12,10,12,3)
     data = data.reshape((n, n) + data.shape[1:]).transpose((0, 2, 1, 3) + tuple(range(4, data.ndim + 1)))
+    #再次转换维度变成(120,10,3)
     data = data.reshape((n * data.shape[1], n * data.shape[3]) +data.shape[4:])
-
+    #展示图像
     plt.imshow(data); plt.axis('off');plt.show()
 
 
