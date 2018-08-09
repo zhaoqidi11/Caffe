@@ -143,11 +143,32 @@ def vis_squre(data):
     #展示图像
     plt.imshow(data); plt.axis('off');plt.show()
 
-
+#展示第一个卷积核的图像（weight）
 filters = net.params['conv1'][0].data
+#将卷积核卷积核的维度进行转置，原来是(96,3,11,11)，现在转变成(96,11,11,3)，96为卷积核的数量，11 x 11代表卷积核的大小，3代表通道的数量
+vis_square(filters.transpose(0,2,3,1))
 
-vis_squre(filters.transpose(0,2,3,1))
-    
+#展示经过第一个卷积核之后的图像，0代表第一个维度仅取第0个下标的数据（第一张图像），第二维取前36个数据（即第0到第35个数据，前36个数据）
+#关于[0, :36]的用法，见https://blog.csdn.net/csj664103736/article/details/72828584
+feat = net.blobs['conv1'].data[0, :36]
+vis_square(feat)
+
+#展示经过第5个池化层之后的图像，仅取第一张图像
+feat = net.blobs['pool5'].data[0]
+vis_square(feat)
+
+###########绘制全连接层(fc6)的输出
+feat = net.blobs['fc6'].data[0]
+#subplot，产生子图，具体用法见https://www.jianshu.com/p/de223a79217a
+#前两个数据(2,1)代表产生2行1列的图像，第三个数据1代表是这是第一张图（序号1）
+plt.subplot(2, 1, 1)
+
+plt.plot(feat.flat)
+#第三个数据2代表这是第二张图
+plt.subplot(2, 1, 2)
+#plt.hist代表绘制
+a = plt.hist(feat.flat[feat.flat > 0], bins=100)
+plt.show()
 
 
 
