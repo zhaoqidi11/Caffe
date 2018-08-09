@@ -4,7 +4,7 @@
 
 于是我们用**Cygwin**这个软件来解决问题<br />
 >
-Crgwin的安装和配置
+Cygwin的安装和配置
 -------------------------
 ### 1.官网
 http://www.cygwin.com/
@@ -30,3 +30,4 @@ http://www.cygwin.com/
 除此之外，建议找到**wget**，因为后面执行一些下载包的命令可能会用到<br />
 ### 4.执行terminal
 安装完毕后,从开始菜单找到Cygwin64 Terminal，运行即可<br />
+bash .sh文件
