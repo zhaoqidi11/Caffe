@@ -185,9 +185,41 @@ plt.figure(figsize=(15, 3))
 plt.plot(feat.flat)
 plt.show()
 
+########################################测试自己的图像
+
+from subprocess import call
+
+import os
+import os.path
+import subprocess
+###wget -O image.jpg 图像地址
+###将该图像下载到image.jpg中
+
+cmd = 'wget -O image.jpg https://upload.wikimedia.org/wikipedia/commons/b/be/Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG'
+
+status = subprocess.call(cmd)
+
+###载入到image变量中
+image = caffe.io.load_image('image.jpg')
 
 
 
+# 变换图像并将其拷贝到网络
+
+net.blobs['data'].data[...] = transformer.preprocess('data', image)
+
+# 预测分类结果
+net.forward()
+
+# 获取输出概率值
+output_prob = net.blobs['prob'].data[0]
+
+# 将softmax的输出结果按照从大到小排序，并提取前5名
+top_inds = output_prob.argsort()[::-1][:5]
+
+plt.imshow(image)
+plt.show()
+print 'probabilities and labels:',zip(output_prob[top_inds], labels[top_inds])
 
 
 
