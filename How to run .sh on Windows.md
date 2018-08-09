@@ -27,7 +27,8 @@ http://www.cygwin.com/
 #### 3.5
 在Select Packages这一步，我选的是mingw64-x86_64-gcc-g++和bash（需要在Search框内输入进行搜索）<br />
 >
-除此之外，建议找到**wget**，因为后面执行一些下载包的命令可能会用到<br />
+除此之外，建议找到**wget和dos2unix**，因为后面执行一些下载包的命令可能会用到<br />
 ### 4.执行terminal
 安装完毕后,从开始菜单找到Cygwin64 Terminal，运行即可<br />
-bash .sh文件
+bash .sh文件<br />
+如果出现'\r'找不到命令的情况，请使用dos2unix进行转换，dos2unix sh文件，方法来自https://blog.csdn.net/u014015919/article/details/72865326
