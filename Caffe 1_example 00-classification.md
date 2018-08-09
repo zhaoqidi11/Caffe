@@ -161,14 +161,30 @@ vis_square(feat)
 feat = net.blobs['fc6'].data[0]
 #subplot，产生子图，具体用法见https://www.jianshu.com/p/de223a79217a
 #前两个数据(2,1)代表产生2行1列的图像，第三个数据1代表是这是第一张图（序号1）
-plt.subplot(2, 1, 1)
 
+################################第一张图：输出全部结果
+plt.subplot(2, 1, 1)
+#在第一张紫图上绘制输出结果
 plt.plot(feat.flat)
+
+
+################################第二张图：按bins进行总结，输出更粗略的直方图
 #第三个数据2代表这是第二张图
 plt.subplot(2, 1, 2)
-#plt.hist代表绘制
+#plt.hist代表绘制，具体用法见https://www.sohu.com/a/195391558_654419
+#由于全连接层输出的是n x 1的向量，即类似概率值的东西（还不是最终的概率值），在这里仅取> 0的有效向量，并且bins为100
 a = plt.hist(feat.flat[feat.flat > 0], bins=100)
 plt.show()
+
+##################################
+#绘制最终的概率输出
+feat = net.blobs['prob'].data[0]
+#figsize参数：指定绘图对象的宽度和高度，单位为英寸；
+#dpi参数指定绘图对象的分辨率，即每英寸多少个像素，缺省值为80。因此本例中所创建的图表窗口的宽度为8*80 = 640像素
+plt.figure(figsize=(15, 3))
+plt.plot(feat.flat)
+plt.show()
+
 
 
 
