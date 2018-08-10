@@ -168,3 +168,138 @@ with open('mnist/lenet_auto_test.prototxt', 'w') as f:
     f.write(str(lenet('mnist/mnist_test_lmdb', 100)))
 
 ```
+
+
+>以下是lenet_auto_train.prototxt的内容
+
+```
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  top: "label"
+  transform_param {
+    scale: 0.00392156862745
+  }
+  data_param {
+    source: "mnist/mnist_train_lmdb"
+    batch_size: 64
+    backend: LMDB
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  convolution_param {
+    num_output: 20
+    kernel_size: 5
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2"
+  convolution_param {
+    num_output: 50
+    kernel_size: 5
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "fc1"
+  type: "InnerProduct"
+  bottom: "pool2"
+  top: "fc1"
+  inner_product_param {
+    num_output: 500
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "fc1"
+  top: "fc1"
+}
+layer {
+  name: "score"
+  type: "InnerProduct"
+  bottom: "fc1"
+  top: "score"
+  inner_product_param {
+    num_output: 10
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "score"
+  bottom: "label"
+  top: "loss"
+}
+
+```
+>以下是lenet_auto_solver.prototxt的内容
+```
+# 以下是train_net和test_net的文件定义
+train_net: "mnist/lenet_auto_train.prototxt"
+test_net: "mnist/lenet_auto_test.prototxt"
+# test_iter 指定了通过test的数量
+# 在这个MNIST的例子当中,我们设定100的batch的size以及100轮
+# 覆盖完整的10,000个测试图像
+test_iter: 100
+# 每500次训练（train）之后进行一次测试
+test_interval: 500
+# 网络的基本学习速率（base_lr）、动量（momentum)以及网络的权重衰减（weight decay）
+base_lr: 0.01
+momentum: 0.9
+weight_decay: 0.0005
+# 学习策略
+lr_policy: "inv"
+gamma: 0.0001
+power: 0.75
+# 每100轮展现一下
+display: 100
+# 轮数的最大值
+max_iter: 10000
+# 设置训练多少次之后保存一次快照
+snapshot: 5000
+# 快照位置
+snapshot_prefix: "mnist/lenet"
+
+```
