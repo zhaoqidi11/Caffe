@@ -1,3 +1,4 @@
+### 1 准备工作
 首先是准备工作，在cygwin里运行两个sh文件<br />
 >
 首先是<font color="#660000">根目录下的data\mnist\get_mnist.sh</font><br /> 
@@ -29,6 +30,8 @@ bash C:\\caffe\\caffe\\examples\\mnist\\create_mnist.sh
 ```
 即可完成<br />
 >
+
+### 2 实现Lenet
 接下来我们实现Lenet的变体，经典的1989年的卷积架构<br />
 
 我们需要两个外部文件来辅助：<br />
@@ -169,6 +172,7 @@ with open('mnist/lenet_auto_test.prototxt', 'w') as f:
 
 ```
 
+### 3 生成的文件
 
 >以下是lenet_auto_train.prototxt的内容
 
@@ -303,3 +307,5 @@ snapshot: 5000
 snapshot_prefix: "mnist/lenet"
 
 ```
+### 4 加载和检查Solver
+
