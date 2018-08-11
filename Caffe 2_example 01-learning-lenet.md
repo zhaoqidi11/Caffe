@@ -460,4 +460,7 @@ ax2.set_ylabel('test accuracy')
 ax2.set_title('Test Accuracy: {:.2f}'.format(test_acc[-1]))
 show()
 ```
-效果如下![image](./Files%20about%20the%20installation%20of%20caffe/11.png)
+效果如下<br />
+![image](./Files%20about%20the%20installation%20of%20caffe/11.png)<br />
+我们可以看到损失下降的很快以及准确性也相应上升。
+
