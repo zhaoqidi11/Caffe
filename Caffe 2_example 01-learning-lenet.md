@@ -457,8 +457,54 @@ ax2.plot(test_interval * arange(len(test_acc)), test_acc, 'r')#len(test_acc)计�
 ax1.set_xlabel('iteration')
 ax1.set_ylabel('train loss')
 ax2.set_ylabel('test accuracy')
-ax2.set_title('Test Accuracy: {:.2f}'.format(test_acc[-1]))
+ax2.set_title('Test Accuracy: {:.2f}'.format(test_acc[-1]))#format的用法：https://blog.csdn.net/bitcarmanlee/article/details/67647282
 show()
+
+for i in range(8):#8代表前8个数据
+    figure(figsize=(2,2))#figsize 定义画布大小， 单位为英寸
+    imshow(solver.test_nets[0].blobs['data'].data[i, 0], cmap='gray')
+    figure(figsize=(10,2))
+    imshow(output[:50, i].T, interpolation='nearest', cmap='gray')
+    # array_like，shape（n，m）或（n，m，3）或（n，m，4）
+    #将图像显示在X当前轴上。X可以是阵列或PIL图像。如果X是数组，则它可以具有以下形状和类型：
+
+    #MxNx3 - RGB（float或uint8）
+    #MxNx4 - RGBA（float或uint8）
+    #MxN数组基于norm（将标量映射到标量）和cmap（将标准标量映射到颜色）映射到颜色。
+
+    #RGB和RGBA阵列的元素表示MxN图像的像素。对于浮点数，所有值应在[0 .. 1]的范围内，
+    #对于整数，所有值应在[0 ... 255]的范围内。超出范围的值将被剪切到这些边界。
+    ##interpolation='nearest'如果显示分辨率与图像分辨率不同（通常是这种情况）
+    #则只显示图像而不尝试在像素之间进行插值。它将产生一个图像，其中像素显示为多个像素的正方形。
+    #插值方法介绍1：https://blog.csdn.net/spw_1201/article/details/53544014
+    #插值方法介绍2：https://www.cnblogs.com/jyxbk/p/7651241.html
+    xlabel('iteration')
+    ylabel('label')
+    show()
+
+for i in range(8):
+    figure(figsize=(2, 2))
+    imshow(solver.test_nets[0].blobs['data'].data[i, 0], cmap='gray')
+    figure(figsize=(10, 2))
+    imshow(exp(output[:50, i].T) / exp(output[:50, i].T).sum(0), interpolation='nearest', cmap='gray')
+    #我们使用softmax计算概率向量
+    xlabel('iteration')
+    ylabel('label')
+    show()
+
+#进行架构和优化的实验
+#现在我们已经定义、训练和测试了Lenet，接下来有很多可能的步骤：
+#1.定义新的架构并进行比较
+#2.设置base_lr等参数或简单地训练更长时间
+#3.改变优化方法（将SGD转变为AdaDelta或者Adam）
+
+
+#下面定义了一个简单的线性分类器作为基线
+#1.将非线性从ReLU转换到ELU或者Sigmoid
+#2.使用更多全连接层或者非线性层
+#3.尝试0.1和0.001的学习率
+#4.将求解器类型转换为Adam
+#5.设置更大的niter（500或者1000等）
 ```
 效果如下<br />
 ![image](./Files%20about%20the%20installation%20of%20caffe/11.png)<br />
