@@ -512,7 +512,7 @@ for i in range(8):
 
 >
 -------------------------------------------
-```
+```Python
 # -*- coding: utf-8 -*-
 import caffe
 from pylab import *
