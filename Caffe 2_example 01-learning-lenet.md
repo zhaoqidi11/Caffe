@@ -510,3 +510,186 @@ for i in range(8):
 ![image](./Files%20about%20the%20installation%20of%20caffe/11.png)<br />
 我们可以看到损失下降的很快以及准确性也相应上升。
 
+>
+-------------------------------------------
+```
+# -*- coding: utf-8 -*-
+import caffe
+from pylab import *
+
+'''
+本来是要使用GPU模式的，但是没有安装GPU相关组件
+caffe.set_device(0)
+caffe.set_mode_gpu()
+'''
+#所以只能设置为CPU模式
+
+caffe.set_mode_cpu()
+
+###################要运行caffe，必须将caffe的python路径加入环境变量
+import sys
+caffe_root = 'C:\\caffe'
+sys.path.insert(0, caffe_root + '\\caffe\\python')
+
+import os
+os.chdir(caffe_root + '\\caffe\\examples')
+from caffe import layers as L, params as P
+
+
+train_net_path = 'mnist/custom_auto_train.prototxt'
+test_net_path = 'mnist/custom_auto_test.prototxt'
+solver_config_path = 'mnist/custom_auto_solver.prototxt'
+
+#https://asdf0982.github.io/2017/08/29/pycaffeExample/
+#http://wentaoma.com/2016/08/10/caffe-python-common-api-reference/
+#https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/405380/
+#https://www.cnblogs.com/zjutzz/p/6185452.html
+
+
+### 定义网络
+def custom_net(lmdb, batch_size):
+    # 定义你自己的网络
+    n = caffe.NetSpec()
+    
+    # 所有网络都需要数据层（data layer)
+    n.data, n.label = L.Data(batch_size=batch_size, backend=P.Data.LMDB, source=lmdb,
+                             transform_param=dict(scale=1./255), ntop=2)
+    
+    # 编辑这里尝试不同的网络
+    #这个定义了一个简单的线性分类器
+    # (特别地，这定义了一个多路线性回归)
+    n.score =   L.InnerProduct(n.data, num_output=10, weight_filler=dict(type='xavier'))
+    
+    # EDIT HERE 这是我们已经尝试过的Lenet网络
+    # n.conv1 = L.Convolution(n.data, kernel_size=5, num_output=20, weight_filler=dict(type='xavier'))
+    # n.pool1 = L.Pooling(n.conv1, kernel_size=2, stride=2, pool=P.Pooling.MAX)
+    # n.conv2 = L.Convolution(n.pool1, kernel_size=5, num_output=50, weight_filler=dict(type='xavier'))
+    # n.pool2 = L.Pooling(n.conv2, kernel_size=2, stride=2, pool=P.Pooling.MAX)
+    # n.fc1 =   L.InnerProduct(n.pool2, num_output=500, weight_filler=dict(type='xavier'))
+    # EDIT HERE 尝试L.ELU或者L.Sigmoid作为非线性层
+    # EDIT HERE consider L.ELU or L.Sigmoid for the nonlinearity
+    # n.relu1 = L.ReLU(n.fc1, in_place=True)
+    # n.score =   L.InnerProduct(n.fc1, num_output=10, weight_filler=dict(type='xavier'))
+    
+    # 所有网络都需要loss Layer（损失层）
+    n.loss =  L.SoftmaxWithLoss(n.score, n.label)
+    
+    return n.to_proto()
+
+with open(train_net_path, 'w') as f:
+    f.write(str(custom_net('mnist/mnist_train_lmdb', 64)))    
+with open(test_net_path, 'w') as f:
+    f.write(str(custom_net('mnist/mnist_test_lmdb', 100)))
+
+### define solver
+
+###solver配置详解：http://yanjoy.win/2016/11/08/caffe%E5%AD%A6%E4%B9%A0%EF%BC%888%EF%BC%89Solver%20%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/
+from caffe.proto import caffe_pb2
+s = caffe_pb2.SolverParameter()
+###详细介绍来自https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/405380/
+# 设置可重复实验的种子
+# this controls for randomization in training.
+s.random_seed = 0xCAFFE
+
+#关于random_seed的介绍来自https://blog.csdn.net/langb2014/article/details/50998340
+
+#随机数在caffe中是非常重要的，最重要的应用是权值的初始化，如高斯、xavier等，
+#初始化的好坏直接影响最终的训练结果，其他的应用如训练图像的随机crop和mirror、
+#dropout层的神经元的选择。RNG类是对Boost以及STL中随机数函数的封装，以方便使用。
+#至于想每次产生相同的随机数，只要设定固定的种子即可
+
+#在关于调试方面对于随机性也有一些介绍，比如https://www.ctolib.com/topics-116808.html中的11 调试 Debugging
+#保证每次都是相同的’random’值. 不过在不同的机器上，seed会产生不同的值.
+
+# Specify locations of the train and (maybe) test networks.
+s.train_net = train_net_path
+s.test_net.append(test_net_path)
+s.test_interval = 500  # 每训练500次测试一轮
+s.test_iter.append(100) # 每次测试100个batches
+
+s.max_iter = 10000     # 更新网络的最大的次数
+ 
+# EDIT HERE to try different solvers
+# 求解器的类型 include "SGD", "Adam", and "Nesterov" among others.
+s.type = "SGD"
+
+# 设定SGD的初始学习速率
+s.base_lr = 0.01  # EDIT HERE 尝试不同的学习速率（learning rates）
+# Set momentum to accelerate learning by
+# taking weighted average of current and previous updates.
+
+#通过对当前和之前的更新进行加权平均，设置加速学习的动量（momentum）。
+s.momentum = 0.9
+# 设置重量衰减来调整和防止过拟合，5e-4表示5 x 10^(-4)
+s.weight_decay = 5e-4
+
+# Set `lr_policy` to define how the learning rate changes during training.
+# 设置lr_policy来定义在训练过程中学习率是如何变哈U的
+# This is the same policy as our default LeNet.
+s.lr_policy = 'inv'
+s.gamma = 0.0001
+s.power = 0.75
+# EDIT HERE 尝试固定速率 (与自适应的solvers进行比较)
+# `fixed` 是保持学习速率不变的最简单的策略
+# s.lr_policy = 'fixed'
+
+# Display the current training loss and accuracy every 1000 iterations.
+# 每1000次迭代显示当前的训练损失和精度
+s.display = 1000
+
+# Snapshots are files used to store networks we've trained.
+# 快照是用来存储我们训练过的网络的文件
+# We'll snapshot every 5K iterations -- twice during training.
+# 每5000次迭代，保存一次快照，则在训练期间会保存两次
+s.snapshot = 5000
+s.snapshot_prefix = 'mnist/custom_net'
+
+# Train on the GPU
+# 如果用GPU训练就是用这个s.solver_mode = caffe_pb2.SolverParameter.GPU
+s.solver_mode = caffe_pb2.SolverParameter.CPU
+
+# Write the solver to a temporary file and return its filename.
+# 将求解程序（solver）写入临时文件(temporary file)并返回其文件名
+with open(solver_config_path, 'w') as f:
+    f.write(str(s))
+
+### 加载solver并且创造训练和测试网络
+solver = None  # ignore this workaround for lmdb data (can't instantiate two solvers on the same data)
+solver = caffe.get_solver(solver_config_path)
+
+### solve
+niter = 250  # EDIT HERE 增加训练次数（可以尝试）
+test_interval = niter / 10
+# losses will also be stored in the log
+train_loss = zeros(niter)
+test_acc = zeros(int(np.ceil(niter / test_interval)))
+
+# the main solver loop
+for it in range(niter):
+    solver.step(1)  # SGD by Caffe
+    
+    # store the train loss
+    train_loss[it] = solver.net.blobs['loss'].data
+    
+    # run a full test every so often
+    # (Caffe can also do this for us and write to a log, but we show here
+    #  how to do it directly in Python, where more complicated things are easier.)
+    if it % test_interval == 0:
+        print 'Iteration', it, 'testing...'
+        correct = 0
+        for test_it in range(100):
+            solver.test_nets[0].forward()
+            correct += sum(solver.test_nets[0].blobs['score'].data.argmax(1)
+                           == solver.test_nets[0].blobs['label'].data)
+        test_acc[it // test_interval] = correct / 1e4
+
+_, ax1 = subplots()
+ax2 = ax1.twinx()
+ax1.plot(arange(niter), train_loss)
+ax2.plot(test_interval * arange(len(test_acc)), test_acc, 'r')
+ax1.set_xlabel('iteration')
+ax1.set_ylabel('train loss')
+ax2.set_ylabel('test accuracy')
+ax2.set_title('Custom Test Accuracy: {:.2f}'.format(test_acc[-1]))
+show()
+```
