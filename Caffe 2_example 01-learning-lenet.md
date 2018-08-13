@@ -535,6 +535,7 @@ import os
 os.chdir(caffe_root + '\\caffe\\examples')
 from caffe import layers as L, params as P
 
+import time
 
 train_net_path = 'mnist/custom_auto_train.prototxt'
 test_net_path = 'mnist/custom_auto_test.prototxt'
@@ -558,18 +559,20 @@ def custom_net(lmdb, batch_size):
     # 编辑这里尝试不同的网络
     #这个定义了一个简单的线性分类器
     # (特别地，这定义了一个多路线性回归)
-    n.score =   L.InnerProduct(n.data, num_output=10, weight_filler=dict(type='xavier'))
+    #n.score =   L.InnerProduct(n.data, num_output=10, weight_filler=dict(type='xavier'))
     
     # EDIT HERE 这是我们已经尝试过的Lenet网络
-    # n.conv1 = L.Convolution(n.data, kernel_size=5, num_output=20, weight_filler=dict(type='xavier'))
-    # n.pool1 = L.Pooling(n.conv1, kernel_size=2, stride=2, pool=P.Pooling.MAX)
-    # n.conv2 = L.Convolution(n.pool1, kernel_size=5, num_output=50, weight_filler=dict(type='xavier'))
-    # n.pool2 = L.Pooling(n.conv2, kernel_size=2, stride=2, pool=P.Pooling.MAX)
-    # n.fc1 =   L.InnerProduct(n.pool2, num_output=500, weight_filler=dict(type='xavier'))
+    n.conv1 = L.Convolution(n.data, kernel_size=5, num_output=20, weight_filler=dict(type='xavier'))
+    n.pool1 = L.Pooling(n.conv1, kernel_size=2, stride=2, pool=P.Pooling.MAX)
+    n.conv2 = L.Convolution(n.pool1, kernel_size=5, num_output=50, weight_filler=dict(type='xavier'))
+    n.pool2 = L.Pooling(n.conv2, kernel_size=2, stride=2, pool=P.Pooling.MAX)
+    n.fc1 =   L.InnerProduct(n.pool2, num_output=500, weight_filler=dict(type='xavier'))
     # EDIT HERE 尝试L.ELU或者L.Sigmoid作为非线性层
     # EDIT HERE consider L.ELU or L.Sigmoid for the nonlinearity
-    # n.relu1 = L.ReLU(n.fc1, in_place=True)
-    # n.score =   L.InnerProduct(n.fc1, num_output=10, weight_filler=dict(type='xavier'))
+    #n.elu1 = L.ELU(n.fc1, in_place=True)
+    n.relu1 = L.ReLU(n.fc1, in_place=True)
+    #n.sigmoid1 = L.Sigmoid(n.fc1)
+    n.score =   L.InnerProduct(n.fc1, num_output=10, weight_filler=dict(type='xavier'))
     
     # 所有网络都需要loss Layer（损失层）
     n.loss =  L.SoftmaxWithLoss(n.score, n.label)
@@ -611,7 +614,7 @@ s.max_iter = 10000     # 更新网络的最大的次数
  
 # EDIT HERE to try different solvers
 # 求解器的类型 include "SGD", "Adam", and "Nesterov" among others.
-s.type = "SGD"
+s.type = "Adam"
 
 # 设定SGD的初始学习速率
 s.base_lr = 0.01  # EDIT HERE 尝试不同的学习速率（learning rates）
@@ -624,7 +627,7 @@ s.momentum = 0.9
 s.weight_decay = 5e-4
 
 # Set `lr_policy` to define how the learning rate changes during training.
-# 设置lr_policy来定义在训练过程中学习率是如何变哈U的
+# 设置lr_policy来定义在训练过程中学习率是如何变化的
 # This is the same policy as our default LeNet.
 s.lr_policy = 'inv'
 s.gamma = 0.0001
@@ -658,14 +661,15 @@ solver = None  # ignore this workaround for lmdb data (can't instantiate two sol
 solver = caffe.get_solver(solver_config_path)
 
 ### solve
-niter = 250  # EDIT HERE 增加训练次数（可以尝试）
+niter = 500  # EDIT HERE 增加训练次数（可以尝试）
 test_interval = niter / 10
 # losses will also be stored in the log
-train_loss = zeros(niter)
+train_loss = zeros(niter)# 存储每一次训练的损失(loss)
 test_acc = zeros(int(np.ceil(niter / test_interval)))
 
 # the main solver loop
-for it in range(niter):
+start = time.clock()
+for it in range(niter):#训练250次
     solver.step(1)  # SGD by Caffe
     
     # store the train loss
@@ -674,7 +678,7 @@ for it in range(niter):
     # run a full test every so often
     # (Caffe can also do this for us and write to a log, but we show here
     #  how to do it directly in Python, where more complicated things are easier.)
-    if it % test_interval == 0:
+    if it % test_interval == 0:#每25次训练，进行一次测试
         print 'Iteration', it, 'testing...'
         correct = 0
         for test_it in range(100):
@@ -683,6 +687,7 @@ for it in range(niter):
                            == solver.test_nets[0].blobs['label'].data)
         test_acc[it // test_interval] = correct / 1e4
 
+print 'Time used:', time.clock()-start
 _, ax1 = subplots()
 ax2 = ax1.twinx()
 ax1.plot(arange(niter), train_loss)
@@ -693,3 +698,26 @@ ax2.set_ylabel('test accuracy')
 ax2.set_title('Custom Test Accuracy: {:.2f}'.format(test_acc[-1]))
 show()
 ```
+
+
+做了一些简单的对比如下：<br />
+1. InnerProduct：10个结点 ；优化方法Adam；base_lr=0.01；训练250次<br />
+![image](./Files%20about%20the%20installation%20of%20caffe/Figure1.png)<br />
+2.InnerProduct：10个结点 ；优化方法SGD；base_lr=0.01；训练250次<br />
+![image](./Files%20about%20the%20installation%20of%20caffe/Figure2.png)<br />
+3.使用卷积神经网络：conv1→pool1→conv2→pool2→fc1→Elu1→score（全连接层）→loss
+Adam<br />
+Time:48.8521010915<br />
+![image](./Files%20about%20the%20installation%20of%20caffe/Figure3.png)<br />
+4.使用卷积神经网络：conv1→pool1→conv2→pool2→fc1→Relu1→score（全连接层）→loss
+Adam<br />
+Time：56.9635074843<br />
+![image](./Files%20about%20the%20installation%20of%20caffe/Figure4.png)<br />
+5.使用卷积神经网络：conv1→pool1→conv2→pool2→fc1→Sigmoid→score（全连接层）→loss
+Adam<br />
+Time：53.9619333615<br />
+![image](./Files%20about%20the%20installation%20of%20caffe/Figure5.png)<br />
+6.使用卷积神经网络：conv1→pool1→conv2→pool2→fc1→ReLU1→score（全连接层）→loss
+Adam<br />
+Time：60.2130245512<br />
+![image](./Files%20about%20the%20installation%20of%20caffe/Figure6.png)<br />
