@@ -710,14 +710,14 @@ Adam<br />
 Time:48.8521010915<br />
 ![image](./Files%20about%20the%20installation%20of%20caffe/Figure3.png)<br />
 4.使用卷积神经网络：conv1→pool1→conv2→pool2→fc1→Relu1→score（全连接层）→loss
-Adam<br />
+优化方法Adam<br />
 Time：56.9635074843<br />
 ![image](./Files%20about%20the%20installation%20of%20caffe/Figure4.png)<br />
 5.使用卷积神经网络：conv1→pool1→conv2→pool2→fc1→Sigmoid→score（全连接层）→loss
-Adam<br />
+优化方法Adam<br />
 Time：53.9619333615<br />
 ![image](./Files%20about%20the%20installation%20of%20caffe/Figure5.png)<br />
 6.使用卷积神经网络：conv1→pool1→conv2→pool2→fc1→ReLU1→score（全连接层）→loss
-Adam<br />
+优化方法Adam,训练500次<br />
 Time：60.2130245512<br />
 ![image](./Files%20about%20the%20installation%20of%20caffe/Figure6.png)<br />
