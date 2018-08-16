@@ -18,3 +18,4 @@ include_in_docs：true<br />
 ```Linux
 bash ./data/mnist/get_mnist/sh
 ```
+由于运行create_mnist_siamese.sh出现问题，所以需要修改
