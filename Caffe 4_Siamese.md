@@ -49,7 +49,7 @@ echo "Done."
 ```
 ----------------------------------
 ### 模型
-首先，我们需要定义一个使用暹罗网络训练的模型。我们需要使用./examples/siamese/nist_siamese.prototxt。<br />
+首先，我们需要定义一个使用暹罗网络训练的模型。我们需要使用./examples/siamese/mnist_siamese.prototxt。<br />
 这个模型几乎与LeNet model是一样的,唯一的差异是，我们用产生二维向量的 linear "feature" layer替换了10个数字输出的类<br />
 ```
 layer {
