@@ -166,6 +166,19 @@ layer {
 ```
 -------------------------------------------------
 ### 训练和测试模型
+!!!!!!!!!!!!!!!!!!!!!!!!高亮!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+由于一些不可知的原因，需要更改一下train_mnist_siamese.sh的内容<br />
+如下<br />
+```
+#!/usr/bin/env sh
+set -e
+
+TOOLS=./scripts/build/tools
+
+$TOOLS/Release/caffe train --solver=examples/siamese/mnist_siamese_solver.prototxt $@
+
+```
+除此之外，还需要修改一下mnist_siamese_solver.prototxt,将其改为CPU模式
 运行<br />
 ```
 bash ./examples/siamese/train_mnist_siamese.sh
