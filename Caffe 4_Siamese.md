@@ -115,3 +115,74 @@ layer {
 ```
 ---------------------------------------------
 ### 建立暹罗网络的First Side
+我们现在可以指定Siamese Net的First Side。这个Side在数据上操作并且产生feat（produces feat）。从网络开始，<br />
+从./example/siamese/mnist_siamese.prototxt我添加了默认的权重初始参数。然后我们命名卷基层和全连接层的参数。<br />
+命名参数允许Caffe可以在Siamese网络两遍的层之间共享参数。在定义中，我们可以看到：<br />
+```
+...
+param { name: "conv1_w" ...  }
+param { name: "conv1_b" ...  }
+...
+param { name: "conv2_w" ...  }
+param { name: "conv2_b" ...  }
+...
+param { name: "ip1_w" ...  }
+param { name: "ip1_b" ...  }
+...
+param { name: "ip2_w" ...  }
+param { name: "ip2_b" ...  }
+...
+```
+---------------------------------------
+### 暹罗网络的Second Side的建立
+我们现在需要在data_p上建立第二个路径，并且产生feat_p。 这条路径与第一条完全一样。<br />
+我们可以复制粘贴。<br />
+然后，我们通过添加“_p”来改变每一层，输入和输出，以区分“paired” layers和原始层。<br />
+>
+--------------------------------------------
+### 添加Contrastive Loss Function
+为了训练网络，需要优化Contrastive loss函数，这个方法由Raia Hadsell, Sumit Chopra, Yann LeCun提出。<br />
+“Dimensionality Reduction by Learning an Invariant Mapping”。  这种损失函数鼓励matching pairs在feature<br />
+space中更加接近，而non-matching pairs会被分开。这个代价函数是通过CONTRASTIVE_LOSS layer实现的。<br />
+```
+layer {
+    name: "loss"
+    type: "ContrastiveLoss"
+    contrastive_loss_param {
+        margin: 1.0
+    }
+    bottom: "feat"
+    bottom: "feat_p"
+    bottom: "sim"
+    top: "loss"
+}
+```
+>
+--------------------------------------------
+### 定义Solver
+我们需要将solver指向一个正确的model file。solver被定义在
+```
+./examples/siamese/mnist_siamese_solver.prototxt
+```
+-------------------------------------------------
+### 训练和测试模型
+运行<br />
+```
+bash ./examples/siamese/train_mnist_siamese.sh
+```
+-------------------------------------------------
+### 描绘结果
+首先，我们可以通过运行以下命令来绘制.prototxt文件中定义的DAGs。<br />
+以此来描绘模型和暹罗网络
+>
+---------------------------------------------------
+```
+./python/draw_net.py \
+    ./examples/siamese/mnist_siamese.prototxt \
+    ./examples/siamese/mnist_siamese.png
+
+./python/draw_net.py \
+    ./examples/siamese/mnist_siamese_train_test.prototxt \
+    ./examples/siamese/mnist_siamese_train_test.png
+```
+
