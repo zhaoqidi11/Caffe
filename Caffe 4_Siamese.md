@@ -199,3 +199,53 @@ bash ./examples/siamese/train_mnist_siamese.sh
     ./examples/siamese/mnist_siamese_train_test.png
 ```
 
+代码：
+```
+# -*- coding: utf-8 -*-
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+caffe_root = 'C:\\caffe'
+import sys
+sys.path.insert(0, caffe_root + '\\caffe\\python')
+
+import caffe
+
+MODEL_FILE = caffe_root + '\\caffe\\examples\\siamese\\mnist_siamese.prototxt'
+PRETRAINED_FILE = caffe_root + '\\caffe\\examples\\siamese\\mnist_siamese_iter_50000.caffemodel' 
+caffe.set_mode_cpu()
+net = caffe.Net(MODEL_FILE, PRETRAINED_FILE, caffe.TEST)
+
+TEST_DATA_FILE = caffe_root + '\\caffe\\data\\mnist\\t10k-images-idx3-ubyte'
+TEST_LABEL_FILE = caffe_root + '\\caffe\\data\\mnist\\t10k-labels-idx1-ubyte'
+n = 10000
+
+with open(TEST_DATA_FILE, 'rb') as f: #rb代表读取二进制文件，关于with open as 的介绍：https://www.cnblogs.com/ymjyqsx/p/6554817.html
+    f.read(16) # 每次最多读取16个字节的内容(读取前16个字节作为文件的头，不用于测试） //read([size])方法从文件当前位置起读取size个字节，若无参数size，则表示读取至文件结束为止，它范围为字符串对象，
+    raw_data = np.fromstring(f.read(n * 28*28), dtype=np.uint8)
+    #图像通常被编码成无符号八位整数（uint8），关于python的图像处理的介绍：https://blog.csdn.net/wuxiaobingandbob/article/details/51751899
+
+with open(TEST_LABEL_FILE, 'rb') as f:
+    f.read(8) # skip the header
+    labels = np.fromstring(f.read(n), dtype=np.uint8)
+
+# reshape and preprocess
+caffe_in = raw_data.reshape(n, 1, 28, 28) * 0.00390625 # 实际上就是1/255manually scale data instead of using `caffe.io.Transformer`
+out = net.forward_all(data=caffe_in)#批量前向传播
+
+#https://blog.csdn.net/lilai619/article/details/54425157 pycaffe 接口介绍
+
+feat = out['feat']
+f = plt.figure(figsize=(16,9))
+c = ['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', 
+     '#ff00ff', '#990000', '#999900', '#009900', '#009999']
+for i in range(10):
+    a = feat[labels==i, 0].flatten()
+    b = feat[labels==i, 1].flatten()
+    plt.plot(feat[labels==i,0].flatten(), feat[labels==i,1].flatten(), '.', c=c[i])
+    #sim = 1表示相似
+plt.legend(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+plt.grid()
+plt.show()
+```
