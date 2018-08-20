@@ -34,7 +34,7 @@ echo "Creating leveldb..."
 
 rm -rf ./examples/siamese/mnist_siamese_train_leveldb
 rm -rf ./examples/siamese/mnist_siamese_test_leveldb
-
+#\ 表示换行（在LINUX系统中），在Windows系统中，用^来表示换行
 $EXAMPLES/Release/convert_mnist_siamese_data.exe \
     $DATA/train-images-idx3-ubyte \
     $DATA/train-labels-idx1-ubyte \
@@ -249,3 +249,8 @@ plt.legend(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
 plt.grid()
 plt.show()
 ```
+
+训练的结构图如下：<br />
+<img src="Files%20about%20the%20installation%20of%20caffe/mynetwrk_TB.png" width = 70% div align="center"/>
+测试的结构图如下：<br />
+<img src="Files%20about%20the%20installation%20of%20caffe/Siamese_TB.png" width = 40% div align="center"/>
