@@ -29,3 +29,17 @@ conda install pydotplus
 ```
 conda install graphviz
 ```
+## 使用说明
+见https://blog.csdn.net/dcxhun3/article/details/52237480
+在caffe根目录下输入
+```
+python python\draw_net.py C:\caffe\caffe\examples\siamese\mnist_siamese_train_test.prototxt mynetwrk.png
+```
+便可以得到一个从左到右的图<br />
+![network](../Files%20about%20the%20installation%20of%20caffe/mynetwrk.png)
+输入
+```
+python python\draw_net.py --rankdir TB C:\caffe\caffe\examples\siamese\mnist_siamese_train_test.prototxt mynetwrk_TB.png
+```
+TB表示从上到下绘制网络结构<br />
+![network_TB](../Files%20about%20the%20installation%20of%20caffe/mynetwrk_TB.png)
