@@ -5,4 +5,27 @@
 安装方法来自https://blog.csdn.net/u013250416/article/details/72790754<br />
 >
 在[Graphviz官网](http://www.graphviz.org)中下载msi文件([Windows版本](https://graphviz.gitlab.io/_pages/Download/Download_windows.html)，然后一直安装下去即可<br />
-<img src="../Files%20about%20the%20installation%20of%20caffe/Graphviz%20Windows.png" width = 50% div align=right/>
+<img src="../Files%20about%20the%20installation%20of%20caffe/Graphviz%20Windows.png" width = 80% div align="center"/>
+<br />
+安装完毕后，将bin文件夹对应的路径添加到Path系统环境变量中，比如C:\Program Files (x86)\Graphviz2.38\bin。<br />
+### 2 安装PyGraphviz
+在http://www.lfd.uci.edu/~gohlke/pythonlibs/#pygraphviz
+下载对应版本<br />
+然后使用
+```
+conda install xxx.whl
+```
+进行安装<br />
+### 3 安装其他组件
+#### a. protobuf
+```
+conda install protobuf
+```
+#### b. pydotplus
+```
+conda install pydotplus
+```
+#### c. graphviz
+```
+conda install graphviz
+```
