@@ -20,7 +20,7 @@ Synthesize a dataset of 10,000 4-vectors for binary classification with 2 inform
 #散步矩阵实例分析：https://blog.csdn.net/hurry0808/article/details/78573585?locationNum=7&fps=1
 
 Brewing_logreg.py
-```
+```Python
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -149,7 +149,7 @@ with open(os.path.join(dirname, 'test.txt'), 'w') as f:
 ```
 
 BrewToCaffe.py
-```
+```Python
 # -*- coding: utf-8 -*-
 from Brewing_logreg import *
 import numpy as np
@@ -588,3 +588,6 @@ I0820 17:58:59.673871 51668 solver.cpp:397]     Test net output #1: loss = 0.588
 I0820 17:58:59.673871 51668 solver.cpp:315] Optimization Done.
 I0820 17:58:59.673871 51668 caffe.cpp:260] Optimization Done.
 ```
+
+这个模型的结构如下<br />
+![log_test.png](Files%20about%20the%20installation%20of%20caffe/log_test.png)
