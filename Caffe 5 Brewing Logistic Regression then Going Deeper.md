@@ -8,7 +8,7 @@ Synthesize a dataset of 10,000 4-vectors for binary classification with 2 inform
 
 **如果在运行过程中，出现“module compiled against API version 0xc but this version of numpy is 0xb”类似的错误**<br />
 解决办法：**升级numpy（注意我们这里使用的numpy版本是numpy+mkl版）到最新版**<br />
-
+```Python
 # -*- coding: utf-8 -*-
 #一些其他资料：
 #sklearn学习笔记（关于class_weight有详细的介绍）：http://www.bubuko.com/infodetail-2393539.html
@@ -20,7 +20,7 @@ Synthesize a dataset of 10,000 4-vectors for binary classification with 2 inform
 #散步矩阵实例分析：https://blog.csdn.net/hurry0808/article/details/78573585?locationNum=7&fps=1
 
 Brewing_logreg.py
-```Python
+
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -592,6 +592,10 @@ I0820 17:58:59.673871 51668 caffe.cpp:260] Optimization Done.
 这个模型的结构如下<br />
 ![log_test.png](Files%20about%20the%20installation%20of%20caffe/log_test.png)
 
+如果你看输出或logreg_auto_train.prototxt，你会看到模型是简单的逻辑回归。 我们可以通过引入在接受输入的权重和给出输出的权重之间的非线性使它更高级 - 现在我们有一个两层网络。 那个网络是在nonlinear_auto_train.prototxt中给出的，这是我们现在使用的在nonlinear_logreg_solver.prototxt中做的唯一改变。
+新网络的最终精度应该高于逻辑回归！
+
+
 NonLinearNet.py
 ```Python
 # -*- coding: utf-8 -*-
@@ -714,3 +718,5 @@ print("Accuracy: {:.3f}".format(accuracy))
 
 #shutil.rmtree(dirname)  递归删除一个目录以及目录内的所有内容
 ```
+这个非线性网络的结构如下：<br />
+![NonLinearNet](Files%20about%20the%20installation%20of%20caffe/nonlinear_test.png)
