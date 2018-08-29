@@ -101,3 +101,95 @@ show_filters(net)
 现在将caffe中自带的ImageNet模型“caffenet”转换成一个全卷积网络，以便于对大量输入高效，密集的运算。这个模型产生一个与输入相同大小的分类图而不是单一的分类器。特别的，在451x451的输入中，一个8x8的分类图提供了64倍的输出但是仅消耗了3倍的时间。The computation exploits a natural efficiency of convolutional network (convnet) structure by amortizing the computation of overlapping receptive fields.
 
 我们将CaffeNet的InnerProduct矩阵乘法层转换为卷积层，这是仅有的改变: the other layer types are agnostic to spatial size. 卷积是平移不变的, 激活是元素操作。 fc6全连接层用fc6-conv替换，用6*6滤波器已间隔为1对pool5的输出进行滤波。回到图像空间中，对每个227*227的输入且步长为32的图像给定一个分类器, 输出图像和感受野的尺寸相同；　output = (input -kernel_size) / stride + 1。
+### Linux diff命令用法：
+diff命令在最简单的情况下，比较给定的两个文件的不同。如果使用“-”代替“文件”参数，则要比较的内容将来自标准输入。diff命令是以逐行的方式，比较文本文件的异同处。如果该命令指定进行目录的比较，则将会比较该目录中具有相同文件名的文件，而不会对其子目录文件进行任何比较操作。<br />
+介绍来自：http://man.linuxde.net/diff
+比较bvlc_caffenet_full_conv与bvlc_reference_caffenet文件夹下的deploy.prototxt的区别<br />
+输出结果如下<br />
+```
+ diff ./examples/net_surgery/bvlc_caffenet_full_conv.prototxt ./models/bvlc_reference_caffenet/deploy.prototxt
+1,2c1
+< # Fully convolutional network version of CaffeNet.
+< name: "CaffeNetConv"
+---
+> name: "CaffeNet"
+7,11c6
+<   input_param {
+<     # initial shape for a fully convolutional network:
+<     # the shape can be set for each input by reshape.
+<     shape: { dim: 1 dim: 3 dim: 451 dim: 451 }
+<   }
+---
+>   input_param { shape: { dim: 10 dim: 3 dim: 227 dim: 227 } }
+157,158c152,153
+<   name: "fc6-conv"
+<   type: "Convolution"
+---
+>   name: "fc6"
+>   type: "InnerProduct"
+160,161c155,156
+<   top: "fc6-conv"
+<   convolution_param {
+---
+>   top: "fc6"
+>   inner_product_param {
+163d157
+<     kernel_size: 6
+169,170c163,164
+<   bottom: "fc6-conv"
+<   top: "fc6-conv"
+---
+>   bottom: "fc6"
+>   top: "fc6"
+175,176c169,170
+<   bottom: "fc6-conv"
+<   top: "fc6-conv"
+---
+>   bottom: "fc6"
+>   top: "fc6"
+182,186c176,180
+<   name: "fc7-conv"
+<   type: "Convolution"
+<   bottom: "fc6-conv"
+<   top: "fc7-conv"
+<   convolution_param {
+---
+>   name: "fc7"
+>   type: "InnerProduct"
+>   bottom: "fc6"
+>   top: "fc7"
+>   inner_product_param {
+188d181
+<     kernel_size: 1
+194,195c187,188
+<   bottom: "fc7-conv"
+<   top: "fc7-conv"
+---
+>   bottom: "fc7"
+>   top: "fc7"
+200,201c193,194
+<   bottom: "fc7-conv"
+<   top: "fc7-conv"
+---
+>   bottom: "fc7"
+>   top: "fc7"
+207,211c200,204
+<   name: "fc8-conv"
+<   type: "Convolution"
+<   bottom: "fc7-conv"
+<   top: "fc8-conv"
+<   convolution_param {
+---
+>   name: "fc8"
+>   type: "InnerProduct"
+>   bottom: "fc7"
+>   top: "fc8"
+>   inner_product_param {
+213d205
+<     kernel_size: 1
+219c211
+<   bottom: "fc8-conv"
+---
+>   bottom: "fc8"
+
+```
