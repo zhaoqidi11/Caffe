@@ -11,7 +11,9 @@ caffe学习笔记11 -- Net Surgery : https://blog.csdn.net/thystar/article/detai
 #### 设计Filters
 为了展示如何加载，操作和保存参数，我们将自己的Filters设计到一个只有单个卷积层的简单网络中。<br />
 该网络有两个blob，用于输入的数据(data)和用于卷积输出的conv和用于卷积滤波器权重和偏差的一个参数conv。
-```
+```Python
+#
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -57,7 +59,8 @@ def show_filters(net):
         plt.title("filter #{} output".format(i))#net.blobs['conv'].data[0,i]第一个维度是图片个数，第二个维度是第几个核，依次输出3个核的卷积结果
 
         plt.imshow(net.blobs['conv'].data[0, i], vmin=filt_min, vmax=filt_max)#imshow将数据标准化为最小和最大值。 您可以使用vmin和vmax参数或norm参数来控制（如果您想要非线性缩放）。
-        plt.tight_layout()#tight_layout会自动调整子图参数，使之填充整个图像区域。这是个实验特性，可能在一些情况下不工作。它仅仅检查坐标轴标签、刻度标签以及标题的部分。
+        plt.tight_layout()#防止各子图重叠，使之紧凑
+        #tight_layout会自动调整子图参数，使之填充整个图像区域。这是个实验特性，可能在一些情况下不工作。它仅仅检查坐标轴标签、刻度标签以及标题的部分。
         #关于tight_layout的介绍https://blog.csdn.net/wizardforcel/article/details/54233181
         plt.axis('off')
     plt.show()
@@ -85,7 +88,8 @@ sigma = 1.
 #关于mgrid的介绍：https://blog.csdn.net/Wzz_Liu/article/details/80962403
 #简单来说mgrid就是，第i个元素的第i维的数字由mgrid函数接受的第i个参数决定，其他维由其他维相应的数字决定，但是以广播填充的形式
 y, x = np.mgrid[-ksize[0]//2 + 1:ksize[0]//2 + 1, -ksize[1]//2 + 1:ksize[1]//2 + 1]#双斜杠（//）表示地板除，即先做除法（/），然后向下取整（floor）
-g = np.exp(-((x**2 + y**2)/(2.0*sigma**2)))#2维高斯函数的公式，进行高斯初始化
+g = np.exp(-((x**2 + y**2)/(2.0*sigma**2)))
+#2维高斯函数的公式，进行高斯初始化,sigma = 1代表标准差=1
 #python中，双星号x**2表示x^2，来源：https://blog.csdn.net/fengjiexyb/article/details/77460510
 gaussian = (g / g.sum()).astype(np.float32)#astype：转换类型，转换成32位浮点数
 net.params['conv'][0].data[0] = gaussian#将W初始化为gaussian (一共3个核，只初始化第一个，后2个不进行初始化
@@ -97,6 +101,7 @@ net.params['conv'][0].data[2, 0, 1:-1, 1:-1] = sobel.T  # vertical
 show_filters(net)
 
 #通过net surgery，参数可以通过网络移植，通过自定义的每个参数操作进行规范化，并根据您的方案进行转换。
+
 ```
 现在将caffe中自带的ImageNet模型“caffenet”转换成一个全卷积网络，以便于对大量输入高效，密集的运算。这个模型产生一个与输入相同大小的分类图而不是单一的分类器。特别的，在451x451的输入中，一个8x8的分类图提供了64倍的输出但是仅消耗了3倍的时间。The computation exploits a natural efficiency of convolutional network (convnet) structure by amortizing the computation of overlapping receptive fields.
 
@@ -208,3 +213,102 @@ fc8-conv的shape是：1000 x 4096 x 1 x 1<br />
 的规模决定，为了将内部产生的权重对应到卷积滤波器中，需要将内部产生的权值转变为channel\*height\*width规模的滤波矩阵。但是他们全部在内存中(按行存储), 所以我们可以直接指定，即两者是一致的。
 <br />
 偏置与内连接层相同。<br />
+
+
+```Python
+import numpy as np
+import matplotlib.pyplot as plt
+
+caffe_root = 'C:\\caffe'
+import sys
+sys.path.insert(0, caffe_root + '\\caffe\\python')
+
+import caffe
+import os
+
+os.chdir(caffe_root+'\\caffe\\examples')
+
+# Load the original network and extract the fully connected layers' parameters.
+net = caffe.Net('../models/bvlc_reference_caffenet/deploy.prototxt', 
+                '../models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel', 
+                caffe.TEST)
+params = ['fc6', 'fc7', 'fc8']
+# fc_params = {name: (weights, biases)}
+fc_params = {pr: (net.params[pr][0].data, net.params[pr][1].data) for pr in params}
+
+for fc in params:
+    print '{} weights are {} dimensional and biases are {} dimensional'.format(fc, fc_params[fc][0].shape, fc_params[fc][1].shape)
+
+'''
+考虑到内部产生的参数的形状，权值的规模是输入*输出，偏置的规模是输出的规模。
+
+'''
+
+
+# Load the fully convolutional network to transplant the parameters.
+net_full_conv = caffe.Net('net_surgery/bvlc_caffenet_full_conv.prototxt', 
+                          '../models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel',
+                          caffe.TEST)
+params_full_conv = ['fc6-conv', 'fc7-conv', 'fc8-conv']
+# conv_params = {name: (weights, biases)}
+conv_params = {pr: (net_full_conv.params[pr][0].data, net_full_conv.params[pr][1].data) for pr in params_full_conv}
+
+for conv in params_full_conv:
+    print '{} weights are {} dimensional and biases are {} dimensional'.format(conv, conv_params[conv][0].shape, conv_params[conv][1].shape)
+
+'''
+卷积权重由 output*input*heigth*width的规模决定，为了将内部产生的权重对应到卷积滤波器中，需要将内部产生的权值转变为channel*height*width规模的滤波矩阵。但是他们全部在内存中(按行存储), 所以我们可以直接指定，即两者是一致的。
+偏置与内连接层相同。
+'''
+
+for pr, pr_conv in zip(params, params_full_conv):
+    conv_params[pr_conv][0].flat = fc_params[pr][0].flat  # flat unrolls the arrays
+    conv_params[pr_conv][1][...] = fc_params[pr][1]
+
+#存储新的权重
+net_full_conv.save('net_surgery/bvlc_caffenet_full_conv.caffemodel')
+
+# load input and configure preprocessing
+im = caffe.io.load_image('images/cat.jpg')
+transformer = caffe.io.Transformer({'data': net_full_conv.blobs['data'].data.shape})
+transformer.set_mean('data', np.load('../python/caffe/imagenet/ilsvrc_2012_mean.npy').mean(1).mean(1))
+transformer.set_transpose('data', (2,0,1))
+transformer.set_channel_swap('data', (2,1,0))
+transformer.set_raw_scale('data', 255.0)
+# make classification map by forward and print prediction indices at each location
+out = net_full_conv.forward_all(data=np.asarray([transformer.preprocess('data', im)]))
+#关于asarray和array的区别：https://blog.csdn.net/gobsd/article/details/56485177
+#关于Caffe solver.net.forward()，solver.test_nets[0].forward() 和 solver.step(1)的介绍
+#
+print out['prob'][0].argmax(axis=0)
+# show net input and confidence map (probability of the top prediction at each location)
+plt.subplot(1, 2, 1)
+plt.imshow(transformer.deprocess('data', net_full_conv.blobs['data'].data[0]))
+plt.subplot(1, 2, 2)
+plt.imshow(out['prob'][0,281])
+
+#关于process和deprocess的源码：https://blog.csdn.net/yxq5997/article/details/53780394
+#process：将图片转换为caffe能够接受的数组；deprocess：将caffe的数据转换成图片
+
+
+plt.show()
+```
+输出结果：
+```
+[[282 282 281 281 281 281 277 282]
+ [281 283 283 281 281 281 281 282]
+ [283 283 283 283 283 283 287 282]
+ [283 283 283 281 283 283 283 259]
+ [283 283 283 283 283 283 283 259]
+ [283 283 283 283 283 283 259 259]
+ [283 283 283 283 259 259 259 277]
+ [335 335 283 259 263 263 263 277]]
+```
+![image](/Files%20about%20the%20installation%20of%20caffe/NetSurgeryCatFigure.png)
+
+分类结果包含各种猫：282是虎猫，281是斑猫，283是波斯猫，还有狐狸及其他哺乳动物。<br />
+
+用这种方式，全连接网络可以用于提取图像的密集特征，这比分类图本身更加有用。<br ?>
+
+注意，这种模型不完全适用与滑动窗口检测，因为它是为了整张图片的分类而训练的，然而，滑动窗口训练和微调可以通过在真值和loss的基础上定义一个滑动窗口，这样一个loss图就会由每一个位置组成，由此可以像往常一样解决。<br />
+
