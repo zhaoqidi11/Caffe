@@ -86,7 +86,7 @@ import tempfile
 def deprocess_net_image(image):
     """将caffe格式图片转化为python格式"""
     image = image.copy()              # don't modify destructively
-    image = image[::-1]               # BGR -> RGB
+    image = image[::-1]               # BGR -> RGB，Python切片介绍：https://www.cnblogs.com/hiwuchong/p/8052502.html
     image = image.transpose(1, 2, 0)  # CHW -> HWC
     image += [123, 117, 104]          # (approximately) undo mean subtraction
 
