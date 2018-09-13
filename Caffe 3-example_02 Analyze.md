@@ -5,6 +5,7 @@ input: caffe格式的图片<br />
 output：Python格式的图片（可用于display）<br />
 >
 **weights:预先加载的已经在Imagenet上训练过的权重**<br />
+**imagenet_labels读取了Imagenet的标签**<br />
 >
 function caffenet(...):<br />
 input:data, label(default:None), train(default:True), num_classes(default:1000), classifier_name(default:'fc8'), learn_all(default:False)<br />
@@ -17,19 +18,23 @@ function style_net(...):<br />
 input: train(default:True), learn_all(default:False), subset(default:None):<br />
 output: 生成一个新网络，train表示数据来源（训练集还是测试集）和模式（训练还是测试），learn_all表示是否要训练全部。这个新网络的第8层（全连接层的名字已经改成fc8_flickr,个数改成NUM_STYLE_LABELS。<br />
 >
-**untrained_style_net生成一个新网络（使用style_net())，测试模式，但读入训练集，读取预训练好的权重**<br />
+**untrained_style_net生成一个新网络（使用style_net())，测试模式，但读入训练集，读取预训练好（在Imagenet上的）的权重**<br />
 **untrained_style_net.forward()执行前馈过程（运行一个batch）**<br />
 **style_data_batch读取这前馈的一批的输入数据**<br />
 **style_label_batch读取标签**<br />
 >
 function disp_preds(...):<br />
-input:net,image,labels,k=5, name='ImageNet'<br />
+input:net,image,labels,k=5, （name默认'ImageNet'）<br />
 output:net:读入网络，image：读入自己的图像，进行前馈，查看结果（前k(5)个标签）<br />
 >
-function disp_imagenet_pres(...):<br />
+function disp_imagenet_preds(...):<br />
 input:net和image<br />
 output:disp_preds(net,image,imagenet_labels, name='ImageNet')<br />
+这个函数读取image（一张图片）读入imagenet_labels的标签<br />
 >
 function disp_style_preds(...):<br />
 input:net和image<br />
 output:disp_preds(net,image,style_labels, name='style')<br />
+这个函数读取image（一张图片）读入style_labels的标签<br />
+**image读取style_data_batch[batch_index(8)]**<br />
+**打印出真实的标签（从style_labels里用索引找出来）**<br />
