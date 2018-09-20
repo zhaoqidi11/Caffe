@@ -44,7 +44,7 @@ python python\draw_net.py --rankdir TB C:\caffe\caffe\examples\siamese\mnist_sia
 TB表示从上到下绘制网络结构<br />
 ![network_TB](../Files%20about%20the%20installation%20of%20caffe/mynetwrk_TB.png)
 ---
-问题1：绘制网络是空白的图像（这个问题多发生在从网络上下载的结构）：<br />
+#### 问题1：绘制网络是空白的图像（这个问题多发生在从网络上下载的结构）：<br />
 解决办法（来自https://github.com/alexgkendall/caffe-posenet/issues/11）<br />
 进入根目录\scripts\build\tools\Release下使用upgrade_net_proto_text.exe将旧的prototxt文件转换成新的prototxt文件<br />
 在cmd中输入命令
