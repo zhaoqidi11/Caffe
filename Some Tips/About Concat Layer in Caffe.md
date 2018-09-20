@@ -3,3 +3,4 @@
 https://blog.csdn.net/zxyhhjs2017/article/details/78939045<br />
 http://caffe.help/manual/layers/concat.html<br />
 https://blog.csdn.net/shuzfan/article/details/54565776<br />
+https://stackoverflow.com/questions/47120275/caffe-concat-layer-input-and-output<br />
