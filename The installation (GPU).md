@@ -1,4 +1,5 @@
 总算可以在学校的平台上搭建caffe了<br />
+具体参考:https://blog.csdn.net/yhaolpz/article/details/71375762 <br />
 gpu版本<br />
 -------------------
 - 系统：ubuntu 16.04
@@ -79,9 +80,78 @@ sudo cp /usr/local/cuda/lib64/libcublas.so.9.0 /usr/local/lib/libcublas.so.9.0 &
 sudo cp /usr/local/cuda/lib64/libcurand.so.9.0 /usr/local/lib/libcurand.so.9.0 && sudo ldconfig
 sudo cp /usr/local/cuda/lib64/libcudnn.so.7 /usr/local/lib/libcurand.so.7 && sudo ldconfig
 ```
-#### 6.测试
+### 6.测试
 ```
 sudo make runtest -j8
 ```
 具体截图如下:<br />
 ![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/caffe-gpu2.png)<br />
+### 7.编译pycaffe接口
+#### (1)编译pycaffe
+```
+cd caffe
+sudo make pycaffe -j8
+```
+可能会出现错误<br />
+```
+python/caffe/_caffe.cpp:10:31: fatal error: numpy/arrayobject.h: 没有那个文件或目录
+```
+解决方法：<br />
+```
+sudo apt-get install python-numpy
+```
+#### (2)测试pycaffe
+进入python环境，导入caffe:
+```
+>>> import caffe
+```
+出现错误①
+```
+File "<stdin>", line 1, in <module>   ImportError: No module named caffe
+```
+解决方法:
+```
+sudo echo export PYTHONPATH="~/caffe/python" >> ~/.bashrc
+
+source ~/.bashrc
+```
+出现错误②
+```
+ImportError: No module named skimage.io
+```
+解决方法:
+```
+sudo pip install -U scikit-image #若没有安装pip: sudo apt install python-pip
+```
+在安装过程中可能会出现下载不成功而导致无法安装的情况（错误③），解决方法:
+```
+sudo apt-get update 
+```
+之后在安装过程中出现错误④ matplotlib无法安装的情况，解决方法：
+```
+pip install --upgrade pip #升级pip
+```
+升级pip之后出现问题⑤：
+```
+File "/usr/bin/pip", line 9, in <module>
+    from pip import main
+ImportError: cannot import name main
+```
+解决方法：
+```
+sudo gedit /usr/bin/pip
+```
+修改pip文件（方法来自：https://blog.csdn.net/qq_38522539/article/details/80678412） ，如下：
+```
+原文：from pip import main 
+修改后：from pip._internal import main
+```
+之后在python环境下import caffe,再次出现错误⑥：
+```
+ImportError: No module named google.protobuf.internal
+```
+解决方法（来自https://blog.csdn.net/dgyuanshaofeng/article/details/78151510 )，如下:
+```
+sudo pip install protobuf
+```
+之后import caffe成功！
