@@ -68,7 +68,7 @@ LIBRARIES += glog gflags protobuf boost_system boost_filesystem m hdf5_serial_hl
 解决方法：修改Makefile.config文件（在caffe目录中）<br />
 ![caffe-gpu](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/caffe-gpu.png)<br />
 将红框框起来的地方注释掉
-#### (2)解决：error while loading shared libraries: libcudart.so.9.1: cannot open shared object file: No such file
+#### (2)解决：error while loading shared libraries: libcudart.so.9.0: cannot open shared object file: No such file
 解决方法来自https://blog.csdn.net/hymanjack/article/details/80199987<br />
 解决方法：<br />
 ```
