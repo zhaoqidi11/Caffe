@@ -3,9 +3,11 @@ gpu版本<br />
 -------------------
 - 系统：ubuntu 16.04
 - cuda:9.0
-- opcv:2.4.9.1
+- opencv:2.4.9.1
 - cudnn:7.0.5
 ---------------------
+由于学校的平台已经自动安好cuda、opencv、cudnn了，所以不再叙述过程，具体见：
+https://blog.csdn.net/yhaolpz/article/details/71375762
 ### 1.克隆caffe
 ```
 git clone https://github.com/BVLC/caffe.git
@@ -63,7 +65,7 @@ LIBRARIES += glog gflags protobuf boost_system boost_filesystem m hdf5_serial_hl
 //#error -- unsupported GNU version! gcc versions later than 6 are not supported!
 ```
 ### 5.因为个人遇到的一些问题，需要再进行修改
-#### (1)解决：Unsupported gpu architecture 'compute_*'2017
+#### (1)解决：Unsupported gpu architecture 'compute_\*'2017
 解决方法来自https://blog.csdn.net/jacke121/article/details/55007527<br />
 解决方法：修改Makefile.config文件（在caffe目录中）<br />
 ![caffe-gpu](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/caffe-gpu.png)<br />
@@ -77,3 +79,9 @@ sudo cp /usr/local/cuda/lib64/libcublas.so.9.0 /usr/local/lib/libcublas.so.9.0 &
 sudo cp /usr/local/cuda/lib64/libcurand.so.9.0 /usr/local/lib/libcurand.so.9.0 && sudo ldconfig
 sudo cp /usr/local/cuda/lib64/libcudnn.so.7 /usr/local/lib/libcurand.so.7 && sudo ldconfig
 ```
+#### 6.测试
+```
+sudo make runtest -j8
+```
+具体截图如下:<br />
+![image](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/caffe-gpu2.png)<br />
