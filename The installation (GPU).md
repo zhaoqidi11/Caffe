@@ -155,3 +155,15 @@ ImportError: No module named google.protobuf.internal
 sudo pip install protobuf
 ```
 之后import caffe成功！
+### 8.安装pycharm
+参考：https://jingyan.baidu.com/article/60ccbceb4e3b0e64cab19733.html
+#### (1)官网下载安装包
+地址：https://www.jetbrains.com/pycharm/download/#section=linux 到这里选择安装包
+#### (2)选择社区版（Community）下载
+#### (3)下载之后解压（extract)
+#### (4)进入到bin文件夹下运行pycharm.sh文件
+```
+sh ./pycharm.sh
+```
+#### (5)安装成功
+#### (6)设定pycharm的python的位置
