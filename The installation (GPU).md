@@ -167,3 +167,14 @@ sh ./pycharm.sh
 ```
 #### (5)安装成功
 #### (6)设定pycharm的python的位置
+参考：https://www.cnblogs.com/429512065qhq/p/8663478.html<br />
+选择Default　Settings → Project Interpreter → add → 选择python的位置<br />
+PS:想要知道python的位置在哪里（https://blog.csdn.net/twt520ly/article/details/79403089）<br />
+##### a.查看所有python路径
+```
+whereis python
+```
+##### b.查看当前使用的python路径
+```
+which python
+```
