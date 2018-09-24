@@ -19,7 +19,7 @@ include_in_docs：true<br />
 切换到caffe根目录下<br />
 运行get_mnist.sh文件<br />
 ```Linux
-bash ./data/mnist/get_mnist/sh
+bash ./data/mnist/get_mnist.sh
 ```
 由于运行create_mnist_siamese.sh出现问题，所以需要修改一下，改为如下<br />
 ```
