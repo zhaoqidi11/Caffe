@@ -178,3 +178,9 @@ whereis python
 ```
 which python
 ```
+##### c.如何运行pycharm
+参考：https://blog.csdn.net/yimixgg/article/details/79442175
+进入到pycharm的目录下的bin文件夹
+```
+bash ./pycharm.sh
+```
