@@ -184,3 +184,49 @@ which python
 ```
 bash ./pycharm.sh
 ```
+### 9.安装VSCode
+参考https://www.cnblogs.com/lzpong/p/6145511.html <br />
+因为pycharm有点翻车，于是改用VSCode
+#### (1)官网下载压缩包
+访问Visual Studio Code官网：<br />
+https://code.visualstudio.com/docs?dv=linux64 <br />
+#### (2)解压
+可以直接右键解压
+#### (3)移动到/usr/local/目录
+```
+mv SCode-linux-x64 /usr/local
+```
+#### (4)给可执行权限
+```
+chmod +x /usr/local/VSCode-linux-x64/code
+```
+#### (5)复制VScode图标文件到/usr/share/icons/目录
+```
+cp /usr/local/VSCode-linux-x64/resources/app/resources/linux/code.png /usr/share/icons/
+```
+#### (6)创建启动器，在/usr/share/applications/目录
+```
+sudo vim /usr/share/applications/VSCode.desktop
+```
+然后输入以下文本<br />
+```
+[Desktop Entry]
+Name=Visual Studio Code
+Comment=Multi-platform code editor for Linux
+Exec=/usr/local/VSCode-linux-x64/code
+Icon=/usr/share/icons/code.png
+Type=Application
+StartupNotify=true
+Categories=TextEditor;Development;Utility;
+MimeType=text/plain;
+```
+保存退出（先按esc键，然后输入:wq)<br />
+然后可以将它复制到桌面<br />
+#### (7)安装python
+打开VS Code，在左侧有个图标![icon_VSCODE](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/QQ%E5%9B%BE%E7%89%8720180928013937.png)
+#### (8)安装pylint可能需要输入的命令
+```
+sudo python -m pip install -U "pylint<2.0.0" --ignore-installed enum34 -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+#### (9)出现问题“Visual Studio Code is unable to watch for file changes in this large workspace" (error ENOSPC)
+参考https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
