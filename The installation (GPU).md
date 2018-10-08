@@ -75,6 +75,17 @@ LIBRARIES += glog gflags protobuf boost_system boost_filesystem m hdf5_serial_hl
 解决方法：修改Makefile.config文件（在caffe目录中）<br />
 ![caffe-gpu](https://github.com/meisa233/Caffe/blob/master/Files%20about%20the%20installation%20of%20caffe/caffe-gpu.png)<br />
 将红框框起来的地方注释掉
+#### (3)为防止出现问题，安装一下依赖
+解决方法来自:https://blog.csdn.net/bone_ace/article/details/80645522<br />
+```
+sudo apt-get install git
+sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev
+libhdf5-serial-dev protobuf-compiler
+sudo apt-get install --no-install-recommends libboost-all-dev
+sudo apt-get install libatlas-base-dev
+sudo apt-get install python-dev
+sudo apt-get insall libgflags-dev libgoogle-glog-dev liblmdb-dev
+```
 #### (2)解决：error while loading shared libraries: libcudart.so.9.0: cannot open shared object file: No such file
 解决方法来自https://blog.csdn.net/hymanjack/article/details/80199987<br />
 解决方法：<br />
@@ -97,6 +108,18 @@ sudo apt-get install --no-install-recommends libboost-all-dev
 解决方法来自：https://blog.csdn.net/u012576214/article/details/68947893
 ```
 sudo apt-get install libgflags-dev
+```
+#### (6)fatal error: gflags/gflags.h:没有那个文件或目录
+解决方法来自：https://www.cnblogs.com/zjutzz/p/5716453.html?utm_source=itdadao&utm_medium=referral
+```
+sudo apt-get install libgoogle-glog-dev
+```
+#### (7)fatal error: caffe/proto/caffe.pb.h: No such file or directory
+解决方法来自:https://blog.csdn.net/lanchunhui/article/details/58245582
+```
+$ protoc src/caffe/proto/caffe.proto --cpp_out=.
+$ sudo mkdir include/caffe/proto
+$ sudo mv src/caffe/proto/caffe.pb.h include/caffe/proto
 ```
 ### 6.安装与测试
 安装
