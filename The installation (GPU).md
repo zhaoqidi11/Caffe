@@ -14,6 +14,10 @@ https://blog.csdn.net/yhaolpz/article/details/71375762
 git clone https://github.com/BVLC/caffe.git
 ```
 不成功的话多试几下
+PS:如果显示没有git这个命令，输入以下内容
+```
+sudo apt-get install git
+```
 ### 2.修改Makefile.config文件
 #### (1)得到Makefile.config文件
 ```
