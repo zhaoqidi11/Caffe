@@ -4,9 +4,30 @@ gpu版本<br />
 -------------------
 - 系统：ubuntu 16.04
 - cuda:9.0
-- opencv:2.4.9.1
+- opencv:2.4.9.1/3.4.0
 - cudnn:7.0.5
 ---------------------
+## 装opencv
+重新申请了一个，发现opencv没了（exm？？）
+于是需要装一下opencv，安装方法来自https://blog.csdn.net/qq473179304/article/details/79444609<br />
+到官网：http://opencv.org/releases.html ，下载3.4.0的opencv，解压到随意一个位置<br />
+在opencv下新建一个文件夹build<br />
+```
+cd build  
+  
+cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..  
+  
+make -j8  #编译  
+```
+编译完成后，安装
+```
+sudo make install #安装  
+```
+安装完成后通过查看opencv版本验证是否安装成功：
+```
+pkg-config --modversion opencv 
+```
+
 由于学校的平台已经自动安好cuda、opencv、cudnn了，所以不再叙述过程，具体见：
 https://blog.csdn.net/yhaolpz/article/details/71375762
 ### 1.克隆caffe
@@ -47,7 +68,13 @@ LIBRARY_DIRS := $(PYTHON_LIB) /usr/local/lib /usr/lib
 INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include /usr/include/hdf5/serial
 LIBRARY_DIRS := $(PYTHON_LIB) /usr/local/lib /usr/lib /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/hdf5/serial
 ```
-
+##### d.如果使用的opencv版本是3修改如下
+```
+将：  
+#OPENCV_VERSION := 3   
+修改为：   
+OPENCV_VERSION := 3  
+```
 ### 3.修改caffe目录下的Makefile文件
 #### (1)修改NVCCFLAGS
 ```
@@ -126,6 +153,7 @@ $ sudo mv src/caffe/proto/caffe.pb.h include/caffe/proto
 ```
 make all -j8
 ```
+如果失败了，先make clean然后再make all -j8<br />
 测试
 ```
 sudo make runtest -j8
