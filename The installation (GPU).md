@@ -16,7 +16,7 @@ gpu版本<br />
 cd build  
   
 cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..  
-  
+#如果cmake命令存在，用sudo apt-get install cmake来安装cmake  
 make -j8  #编译  
 ```
 编译完成后，安装
