@@ -197,8 +197,8 @@ ImportError: No module named skimage.io
 ```
 sudo pip install -U scikit-image #若没有安装pip: sudo apt install python-pip
 ```
-有可能会出现“Could not find a version that satisfies the requirement scikit-image (from versions:) No matching distribution found for scikit-image”，再试几次就好<br />
-如果下载过程中出现“ReadTimeoutError：HTTPSConnectionPool(host='files.pythonhosted.org', port=443):Read timed out.”，使用清华镜像可以解决问题，使用方法：pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package（来源见https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)<br />
+**有可能会出现“Could not find a version that satisfies the requirement scikit-image (from versions:) No matching distribution found for scikit-image”，再试几次就好**<br />
+如果下载过程中出现**“ReadTimeoutError：HTTPSConnectionPool(host='files.pythonhosted.org', port=443):Read timed out.”，使用清华镜像可以解决问题，使用方法：pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package（来源见https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)**<br />
 在安装过程中可能会出现下载不成功而导致无法安装的情况（错误③），解决方法:
 ```
 sudo apt-get update 
@@ -207,10 +207,10 @@ sudo apt-get update
 ```
 pip install --upgrade pip #升级pip
 ```
-2018/10/08更新：pip更新方法见https://www.jb51.net/article/138426.htm<br />
+**2018/10/08更新：pip更新方法见https://www.jb51.net/article/138426.htm<br />
 简述：到pypi下载pip的tar.gz包，解压后，在该目录下python setup.py install<br />
 但是注意，这个时候安装matplotlib仍然会出现问题，所以先安装matplotlib指定版本 ：sudo pip install matplotlib==2.2.3<br />
-然后再安装scikit-image<br />
+然后再安装scikit-image**<br />
 
 
 升级pip之后出现问题⑤：
