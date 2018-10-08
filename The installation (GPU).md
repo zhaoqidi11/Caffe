@@ -203,31 +203,31 @@ sudo pip install -U scikit-image #若没有安装pip: sudo apt install python-pi
 ```
 sudo apt-get update 
 ```
-之后在安装过程中出现错误④ matplotlib无法安装的情况，解决方法：
-```
-pip install --upgrade pip #升级pip
-```
+之后在安装过程中出现错误④ matplotlib无法安装的情况，解决方法：<br />
+升级pip<br />
 **2018/10/08更新：pip更新方法见https://www.jb51.net/article/138426.htm<br />
 简述：到pypi下载pip的tar.gz包，解压后，在该目录下python setup.py install<br />
 但是注意，这个时候安装matplotlib仍然会出现问题，所以先安装matplotlib指定版本 ：sudo pip install matplotlib==2.2.3<br />
 然后再安装scikit-image**<br />
+>```
+>pip install --upgrade pip #升级pip
+>```
 
-
-升级pip之后出现问题⑤：
-```
-File "/usr/bin/pip", line 9, in <module>
-    from pip import main
-ImportError: cannot import name main
-```
-解决方法：
-```
-sudo gedit /usr/bin/pip
-```
-修改pip文件（方法来自：https://blog.csdn.net/qq_38522539/article/details/80678412） ，如下：
-```
-原文：from pip import main 
-修改后：from pip._internal import main
-```
+>升级pip之后出现问题⑤：
+>```
+>File "/usr/bin/pip", line 9, in <module>
+>    from pip import main
+>ImportError: cannot import name main
+>```
+>解决方法：
+>```
+>sudo gedit /usr/bin/pip
+>```
+>修改pip文件（方法来自：https://blog.csdn.net/qq_38522539/article/details/80678412） ，如下：
+>```
+>原文：from pip import main 
+>修改后：from pip._internal import main
+>```
 之后在python环境下import caffe,再次出现错误⑥：
 ```
 ImportError: No module named google.protobuf.internal
