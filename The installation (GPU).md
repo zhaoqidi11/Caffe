@@ -163,7 +163,7 @@ sudo make runtest -j8
 ### 7.编译pycaffe接口
 #### (1)编译pycaffe
 ```
-cd caffe
+#caffe根目录下
 sudo make pycaffe -j8
 ```
 可能会出现错误<br />
@@ -185,7 +185,7 @@ File "<stdin>", line 1, in <module>   ImportError: No module named caffe
 ```
 解决方法:
 ```
-sudo echo export PYTHONPATH="~/caffe/python" >> ~/.bashrc
+sudo echo export PYTHONPATH="~/caffe/python" >> ~/.bashrc#注意引号里面的caffe是caffe的根目录地址
 
 source ~/.bashrc
 ```
