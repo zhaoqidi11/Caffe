@@ -84,14 +84,21 @@ sudo cp /usr/local/cuda/lib64/libcublas.so.9.0 /usr/local/lib/libcublas.so.9.0 &
 sudo cp /usr/local/cuda/lib64/libcurand.so.9.0 /usr/local/lib/libcurand.so.9.0 && sudo ldconfig
 sudo cp /usr/local/cuda/lib64/libcudnn.so.7 /usr/local/lib/libcurand.so.7 && sudo ldconfig
 ```
-### (3)提示 make: protoc: Command not found，好吧，需要安装protoc-c
+#### (3)提示 make: protoc: Command not found，好吧，需要安装protoc-c
 ```
 sudo apt-get install protobuf-c-compiler protobuf-compiler
 ````
+#### (4)./include/caffe/common.hpp:4:32: fatal error: boost/shared_ptr.hpp: 没有那个文件或目录
+解决方法来自：https://blog.csdn.net/lwgkzl/article/details/77657933<br />
+```
+sudo apt-get install --no-install-recommends libboost-all-dev
+```
 ### 6.安装与测试
+安装
 ```
 make all -j8
 ```
+测试
 ```
 sudo make runtest -j8
 ```
