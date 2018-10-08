@@ -84,7 +84,14 @@ sudo cp /usr/local/cuda/lib64/libcublas.so.9.0 /usr/local/lib/libcublas.so.9.0 &
 sudo cp /usr/local/cuda/lib64/libcurand.so.9.0 /usr/local/lib/libcurand.so.9.0 && sudo ldconfig
 sudo cp /usr/local/cuda/lib64/libcudnn.so.7 /usr/local/lib/libcurand.so.7 && sudo ldconfig
 ```
-### 6.测试
+### (3)提示 make: protoc: Command not found，好吧，需要安装protoc-c
+```
+sudo apt-get install protobuf-c-compiler protobuf-compiler
+````
+### 6.安装与测试
+```
+make all -j8
+```
 ```
 sudo make runtest -j8
 ```
