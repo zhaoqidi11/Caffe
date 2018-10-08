@@ -93,6 +93,11 @@ sudo apt-get install protobuf-c-compiler protobuf-compiler
 ```
 sudo apt-get install --no-install-recommends libboost-all-dev
 ```
+#### (5)./include/caffe/common.hpp:5:27: fatal error: gflags/gflags.h: No such file or directory
+解决方法来自：https://blog.csdn.net/u012576214/article/details/68947893
+```
+sudo apt-get install libgflags-dev
+```
 ### 6.安装与测试
 安装
 ```
