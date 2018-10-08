@@ -198,7 +198,7 @@ ImportError: No module named skimage.io
 sudo pip install -U scikit-image #若没有安装pip: sudo apt install python-pip
 ```
 **有可能会出现“Could not find a version that satisfies the requirement scikit-image (from versions:) No matching distribution found for scikit-image”，再试几次就好**<br />
-如果下载过程中出现**“ReadTimeoutError：HTTPSConnectionPool(host='files.pythonhosted.org', port=443):Read timed out.”，使用清华镜像可以解决问题，使用方法：pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package（来源见https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)**<br />
+**如果下载过程中出现“ReadTimeoutError：HTTPSConnectionPool(host='files.pythonhosted.org', port=443):Read timed out.”，使用清华镜像可以解决问题，使用方法：pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package**（来源见https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)<br />
 在安装过程中可能会出现下载不成功而导致无法安装的情况（错误③），解决方法:
 ```
 sudo apt-get update 
