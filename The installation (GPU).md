@@ -27,7 +27,11 @@ sudo make install #安装
 ```
 pkg-config --modversion opencv 
 ```
-
+**python2.7 装 opencv** <br />
+```
+sudo pip install opencv-python
+```
+(也有人用python-opencv试过……会出现问题）<br />
 由于学校的平台已经自动安好cuda、opencv、cudnn了，所以不再叙述过程，具体见：
 https://blog.csdn.net/yhaolpz/article/details/71375762
 ### 1.克隆caffe
