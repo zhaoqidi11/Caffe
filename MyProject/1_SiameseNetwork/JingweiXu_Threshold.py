@@ -77,6 +77,16 @@ class JingweiXu():
 
 
 
+    def getHist(self, segments):
+        import cv2
+        i_Video = cv2.VideoCapture('/data/RAIDataset/Video/2.mp4')
+        i_Video.set(1, segments[0])
+        ret1, frame1 = i_Video.read()
+
+        i_Video.set(1, segments[1])
+        ret2, frame2 = i_Video.read()
+
+        frame1hist = cv2.calcHist(frame1,)
 
 
 
@@ -87,7 +97,7 @@ class JingweiXu():
 
         # It save the pixel intensity between 20n and 20(n+1)
         d = []
-
+        SegmentsLength = 21
         i_Video = cv2.VideoCapture('/data/RAIDataset/Video/2.mp4')
         if i_Video.isOpened():
             success = True
@@ -99,19 +109,19 @@ class JingweiXu():
         FrameNumber = int(i_Video.get(7))
 
         # The number of segments
-        Count = int(math.ceil(float(FrameNumber) / 21.0))
+        Count = int(math.ceil(float(FrameNumber) / float(SegmentsLength)))
         for i in range(Count):
 
-            i_Video.set(1, 20*i)
+            i_Video.set(1, (SegmentsLength-1)*i)
             ret1, frame_20i = i_Video.read()
 
-            if(20*(i+1)) >= FrameNumber:
+            if((SegmentsLength-1)*(i+1)) >= FrameNumber:
                 i_Video.set(1, FrameNumber-1)
                 ret2, frame_20i1 = i_Video.read()
                 d.append(np.sum(np.abs(self.RGBToGray(frame_20i) - self.RGBToGray(frame_20i1))))
                 break
 
-            i_Video.set(1, 20*(i+1))
+            i_Video.set(1, (SegmentsLength-1)*(i+1))
             ret2, frame_20i1 = i_Video.read()
 
             d.append(np.sum(np.abs(self.RGBToGray(frame_20i) - self.RGBToGray(frame_20i1))))
@@ -133,7 +143,7 @@ class JingweiXu():
                 if i*10 + j >= len(d):
                     break
                 if d[i*10+j]>Tl[i]:
-                    CandidateSegment.append([(i*10+j)*20, (i*10+j+1)*20])
+                    CandidateSegment.append([(i*10+j)*(SegmentsLength-1), (i*10+j+1)*(SegmentsLength-1)])
                     #print 'A candidate segment is', (i*10+j)*20, '~', (i*10+j+1)*20
 
         return CandidateSegment
@@ -170,12 +180,14 @@ class JingweiXu():
         CandidateSegments = self.CutVideoIntoSegments()
         for i in range(len(CandidateSegments)):
             FrameV = self.get_vector(CandidateSegments[i])
-            D1Sequence = []
-            for j in range(len(FrameV)-1):
-                D1Sequence.append(self.cosin_distance(FrameV[j], FrameV[j+1]))
+
+
 
             D1 = self.getD1(FrameV)
             if D1 < 0.9:
+                D1Sequence = []
+                for j in range(len(FrameV) - 1):
+                    D1Sequence.append(self.cosin_distance(FrameV[j], FrameV[j + 1]))
                 if np.min(D1Sequence) < k*D1+(1-k):
                     if np.max(D1Sequence)- np.min(D1Sequence) > Tc:
                         print np.argmin(D1Sequence)
