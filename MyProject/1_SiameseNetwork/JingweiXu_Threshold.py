@@ -1,6 +1,8 @@
 class JingweiXu():
 
-    def get_vector(self):
+    def get_vector(self, segments):
+        import sys
+        import os
         sys.path.insert(0, '/data/caffe/python')
         import caffe
         import cv2
@@ -38,22 +40,6 @@ class JingweiXu():
 
 
 
-        # Frame stores all frames of this video
-        Frame = []
-        while success:
-            success, frame = i_Video.read()
-            Frame.append(frame)
-
-        # # Convert .binaryproto to .npy file
-        # blob = caffe.proto.caffe_pb2.BlobProto()
-        # data = open('hybridCNN_mean.binaryproto', 'rb').read()
-        # blob.ParseFromString(data)
-        # array = np.array(caffe.io.blobproto_to_array(blob))
-        # mean_npy = array[0]
-        # np.save('place205.npy', mean_npy)
-        # mu = np.load('place205.npy')
-        #
-        # mu = mu.mean(1).mean(1)
 
         transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
 
@@ -68,11 +54,13 @@ class JingweiXu():
 
         FrameV = []
 
-        for i in range(len(Frame)):
-            if Frame[i] is None:
+        for i in range(segments[0], segments[1]+1):
+            i_Video.set(1, i)
+            ret, frame = i_Video.read()
+            if frame is None:
                 print i
                 continue
-            transformed_image = transformer.preprocess('data', Frame[i])
+            transformed_image = transformer.preprocess('data', frame)
             net.blobs['data'].data[...] = transformed_image
             output = net.forward()
             FrameV.append(output['score'][0].tolist())
@@ -118,6 +106,9 @@ class JingweiXu():
             ret1, frame_20i = i_Video.read()
 
             if(20*(i+1)) >= FrameNumber:
+                i_Video.set(1, FrameNumber-1)
+                ret2, frame_20i1 = i_Video.read()
+                d.append(np.sum(np.abs(self.RGBToGray(frame_20i) - self.RGBToGray(frame_20i1))))
                 break
 
             i_Video.set(1, 20*(i+1))
@@ -130,12 +121,23 @@ class JingweiXu():
         GroupNumber = int(math.ceil(float(FrameNumber) / 10.0))
 
         MIUG = np.mean(d)
+        a = 0.7 # The range of a is 0.5~0.7
+        Tl = [] # It save the Tl of each group
+        CandidateSegment = []
         for i in range(GroupNumber):
             MIUL = np.mean(d[10*i:10*i+10])
             SigmaL = np.std(d[10*i:10*i+10])
 
-            TL = MIUL + 
-        print 'a'
+            Tl.append(MIUL + a*(1+math.log(MIUG/MIUL))*SigmaL)
+            for j in range(10):
+                if i*10 + j >= len(d):
+                    break
+                if d[i*10+j]>Tl[i]:
+                    CandidateSegment.append([(i*10+j)*20, (i*10+j+1)*20])
+                    #print 'A candidate segment is', (i*10+j)*20, '~', (i*10+j+1)*20
+
+        return CandidateSegment
+        #print 'a'
 
 
 
@@ -157,7 +159,27 @@ class JingweiXu():
     def getD1(self, Segment):
         return self.cosin_distance(Segment[0], Segment[-1])
 
+    # CT Detection
+    def CTDetection(self):
+        import matplotlib.pyplot as plt
+        CandidateSegments = self.CutVideoIntoSegments()
+        for i in range(len(CandidateSegments)):
+            FrameV = self.get_vector(CandidateSegments[i])
+            D1Sequence = []
+            for j in range(len(FrameV)-1):
+                D1Sequence.append(self.cosin_distance(FrameV[j], FrameV[j+1]))
+
+                # plot the image
+
+            x = range(len(D1Sequence))
+
+            plt.figure()
+            plt.plot(x, D1Sequence)
+
+            plt.show()
+
 
 if __name__ == '__main__':
     test1 = JingweiXu()
-    test1.CutVideoIntoSegments()
+    #test1.CutVideoIntoSegments()
+    test1.CTDetection()
