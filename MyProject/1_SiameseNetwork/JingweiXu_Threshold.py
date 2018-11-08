@@ -162,6 +162,11 @@ class JingweiXu():
     # CT Detection
     def CTDetection(self):
         import matplotlib.pyplot as plt
+        import numpy as np
+
+        k = 0.55
+        Tc = 0.6
+
         CandidateSegments = self.CutVideoIntoSegments()
         for i in range(len(CandidateSegments)):
             FrameV = self.get_vector(CandidateSegments[i])
@@ -169,14 +174,20 @@ class JingweiXu():
             for j in range(len(FrameV)-1):
                 D1Sequence.append(self.cosin_distance(FrameV[j], FrameV[j+1]))
 
-                # plot the image
+            D1 = self.getD1(FrameV)
+            if D1 < 0.9:
+                if np.min(D1Sequence) < k*D1+(1-k):
+                    if np.max(D1Sequence)- np.min(D1Sequence) > Tc:
+                        print np.argmin(D1Sequence)
 
-            x = range(len(D1Sequence))
-
-            plt.figure()
-            plt.plot(x, D1Sequence)
-
-            plt.show()
+            # # plot the image
+            #
+            # x = range(len(D1Sequence))
+            #
+            # plt.figure()
+            # plt.plot(x, D1Sequence)
+            #
+            # plt.show()
 
 
 if __name__ == '__main__':
