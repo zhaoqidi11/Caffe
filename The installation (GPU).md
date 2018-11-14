@@ -152,6 +152,11 @@ $ protoc src/caffe/proto/caffe.proto --cpp_out=.
 $ sudo mkdir include/caffe/proto
 $ sudo mv src/caffe/proto/caffe.pb.h include/caffe/proto
 ```
+#### (8)fatal error: google/protobuf/stubs/common.h: no such file or directory
+```
+sudo apt-get install libprotobuf-dev protobuf-compiler
+```
+
 ### 6.安装与测试
 安装，在caffe目录下执行
 ```
