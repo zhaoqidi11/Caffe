@@ -16,7 +16,7 @@ gpu版本<br />
 cd build  
   
 cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..  
-#如果cmake命令存在，用sudo apt-get install cmake来安装cmake  
+#如果cmake命令不存在，用sudo apt-get install cmake来安装cmake  
 make -j8  #编译  
 ```
 编译完成后，安装
@@ -115,7 +115,7 @@ libhdf5-serial-dev protobuf-compiler
 sudo apt-get install --no-install-recommends libboost-all-dev
 sudo apt-get install libatlas-base-dev
 sudo apt-get install python-dev
-sudo apt-get insall libgflags-dev libgoogle-glog-dev liblmdb-dev
+sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev
 ```
 #### (2)解决：error while loading shared libraries: libcudart.so.9.0: cannot open shared object file: No such file
 解决方法来自https://blog.csdn.net/hymanjack/article/details/80199987<br />
