@@ -156,7 +156,10 @@ $ sudo mv src/caffe/proto/caffe.pb.h include/caffe/proto
 ```
 sudo apt-get install libprotobuf-dev protobuf-compiler
 ```
-
+#### (9)/usr/bin/ld: cannot find -lsnappy
+```
+sudo apt-get install libsnappy-dev
+```
 ### 6.安装与测试
 安装，在caffe目录下执行
 ```
