@@ -160,6 +160,16 @@ sudo apt-get install libprotobuf-dev protobuf-compiler
 ```
 sudo apt-get install libsnappy-dev
 ```
+#### (10)//usr/local/anaconda3/lib/libpng16.so.16: undefined reference to 'inflateValidate@ZILB_1.2.9'
+```
+解决方法：来自https://www.cnblogs.com/haoliuhust/p/7738920.html，自行编译zlib1.2.9
+下载https:////sourceforge.net/projects/libpng/files/zlib/
+解压，进入该目录
+./configure
+make
+sudo make install
+
+```
 ### 6.安装与测试
 安装，在caffe目录下执行
 ```
