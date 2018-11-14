@@ -153,7 +153,7 @@ $ sudo mkdir include/caffe/proto
 $ sudo mv src/caffe/proto/caffe.pb.h include/caffe/proto
 ```
 ### 6.安装与测试
-安装
+安装，在caffe目录下执行
 ```
 make all -j8
 ```
