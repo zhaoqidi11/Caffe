@@ -288,6 +288,10 @@ which python
 ```
 bash ./pycharm.sh
 ```
+##### d.debug时会出现问题：no module named tkinter
+```
+sudo apt-get install python-tk
+```
 ### 9.安装VSCode
 参考https://www.cnblogs.com/lzpong/p/6145511.html <br />
 因为pycharm有点翻车，于是改用VSCode
