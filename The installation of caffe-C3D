@@ -1,0 +1,12 @@
+于是这个C3D的坑是不得不迈出去了<br />
+参考：https://blog.csdn.net/kmyfoer/article/details/80060696
+### error1:undefined reference to `cv::VideoCapture::VideoCapture()'
+解决方案：修改Makefile文件
+将<br />
+```
+LIBRARIES += opencv_core opencv_highgui opencv_imgproc opencv_video
+```
+修改为
+```
+LIBRARIES += opencv_core opencv_highgui opencv_imgproc opencv_videoio
+```
