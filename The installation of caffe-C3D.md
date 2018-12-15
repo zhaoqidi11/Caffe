@@ -87,7 +87,7 @@ sudo apt-get install ffmpeg
 ```
 cd build  
   
-cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local WITH_FFMPEG=YES..  
+cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local WITH_FFMPEG=YES ..  
 #如果cmake命令不存在，用sudo apt-get install cmake来安装cmake  
 make -j8  #编译  
 ```
